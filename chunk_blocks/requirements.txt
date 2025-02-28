@@ -1,0 +1,3 @@
+openai==1.19.0
+numpy==1.26.4
+tiktoken==0.7.0 
