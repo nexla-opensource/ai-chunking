@@ -1,4 +1,5 @@
 import asyncio
+import time
 from typing import List, Dict, Tuple
 from json_utils import parse_json_response
 from models import Document, Section, Chunk, Summary
@@ -15,6 +16,7 @@ from logger_config import logger
 async def process_sections(sections: List[str]) -> List[Section]:
     """Process sections in parallel"""
     async def process_section(text: str, idx: int) -> Section:
+        logger.info(f"Processing section {idx}")
         prompt = SECTION_PROMPT.format(
             text=text,
         )
@@ -39,9 +41,11 @@ async def process_sections(sections: List[str]) -> List[Section]:
 
 def create_chunks(text: str, min_chunk_size: int) -> List[str]:
     """Create chunks using semantic chunking"""
+    start_time = time.perf_counter()
     splitter = create_semantic_splitter(min_chunk_size=min_chunk_size)
     chunks = splitter.split_text(text)
-    logger.info(f"Created {len(chunks)} chunks")
+    end_time = time.perf_counter()
+    logger.info(f"Created {len(chunks)} chunks in {end_time - start_time:.2f} seconds")
     return chunks
 
 async def process_chunks(
@@ -51,10 +55,12 @@ async def process_chunks(
 ) -> List[Chunk]:
     """Process chunks in parallel"""
     async def process_chunk(text: str, idx: int) -> Chunk:
+        logger.info(f"Processing chunk {idx}")
+        doc_summary_text = str(document_summary)
         prompt = CHUNK_PROMPT.format(
             text=text,
             section_summary=section_summary.text,
-            document_summary=str(document_summary)
+            document_summary=doc_summary_text
         )
         response_json = await process_with_llm(prompt)
         global_context = response_json.get("global_context", "")
@@ -82,6 +88,7 @@ async def process_chunks(
 
 async def process_document_summary(section_summaries: List[Summary]) -> Summary:
     """Process document summary from section summaries"""
+    logger.info("Processing complete document summary")
     # Combine all section summaries
     combined_summaries = "\n\n".join(summary.text for summary in section_summaries)
     
