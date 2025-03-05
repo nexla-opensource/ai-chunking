@@ -4,11 +4,8 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 import asyncio
 import tiktoken
-from langchain_experimental.text_splitter import SemanticChunker
-from langchain_openai import OpenAIEmbeddings
 from litellm import AsyncOpenAI
 
-from chunk_blocks.constants import MAX_CHUNK_SIZE
 from constants import MODEL_NAME
 from json_utils import parse_json_response
 from prompts import SYSTEM_PROMPT
@@ -77,32 +74,6 @@ async def run_concurrent_tasks(tasks: List[asyncio.Task], max_concurrent: int = 
         return_exceptions=True
     )
 
-def create_semantic_splitter(min_chunk_size: int, max_tokens: int = MAX_CHUNK_SIZE) -> SemanticChunker:
-    """
-    Create semantic text splitter with optimized settings to target chunks below max_tokens.
-    
-    Args:
-        min_chunk_size: Minimum chunk size in characters
-        max_tokens: Target maximum tokens per chunk
-        
-    Returns:
-        Configured SemanticChunker instance
-    """
-    # Adjust breakpoint threshold based on max_tokens
-    # Lower threshold creates more breakpoints (smaller chunks)
-    if max_tokens <= 500:
-        threshold_amount = 80.0  # More aggressive splitting for small max_tokens
-    elif max_tokens <= 1000:
-        threshold_amount = 85.0  # Moderate splitting
-    else:
-        threshold_amount = 90.0  # Less aggressive splitting for larger max_tokens
-        
-    return SemanticChunker(
-        embeddings=OpenAIEmbeddings(model="text-embedding-3-large"),
-        min_chunk_size=min_chunk_size,
-        breakpoint_threshold_type="percentile",
-        breakpoint_threshold_amount=threshold_amount
-    )
 
 def text_similarity_ratio(text1: str, text2: str) -> float:
     return SequenceMatcher(None, text1, text2).ratio()

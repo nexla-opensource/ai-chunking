@@ -1,16 +1,17 @@
 import asyncio
 import time
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 from json_utils import parse_json_response
 from models import Document, Section, Chunk, Summary
-from utils import create_semantic_splitter, extract_image_urls, process_with_llm, count_tokens
-from openai import AsyncOpenAI
+from utils import extract_image_urls, process_with_llm, count_tokens
+from section_wise_chunking.semantic_chunker import create_semantic_splitter
 from prompts import (
     DOCUMENT_PROMPT,
     SECTION_PROMPT,
     CHUNK_PROMPT
 )
 from logger_config import logger
+from constants import MAX_CHUNK_SIZE
 
 
 async def process_sections(sections: List[str]) -> List[Section]:
@@ -39,13 +40,25 @@ async def process_sections(sections: List[str]) -> List[Section]:
     logger.info(f"Processed {len(processed_sections)} sections")
     return processed_sections
 
-def create_chunks(text: str, min_chunk_size: int) -> List[str]:
-    """Create chunks using semantic chunking"""
+def create_chunks(text: str, min_chunk_size: int, max_chunk_size: Optional[int]) -> List[str]:
+    """
+    Create chunks using semantic chunking with optional size constraints.
+    
+    Args:
+        text: The text to chunk
+        min_chunk_size: Minimum chunk size in characters
+        max_chunk_size: Maximum chunk size in tokens. If None, only semantic chunking 
+                      is performed without size constraints.
+                      
+    Returns:
+        List of text chunks
+    """
     start_time = time.perf_counter()
-    splitter = create_semantic_splitter(min_chunk_size=min_chunk_size)
+    splitter = create_semantic_splitter(min_chunk_size=min_chunk_size, max_tokens=max_chunk_size)
     chunks = splitter.split_text(text)
     end_time = time.perf_counter()
     logger.info(f"Created {len(chunks)} chunks in {end_time - start_time:.2f} seconds")
+    logger.info(f"Chunk sizes (tokens): {[count_tokens(chunk) for chunk in chunks]}")
     return chunks
 
 async def process_chunks(

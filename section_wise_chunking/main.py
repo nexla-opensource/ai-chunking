@@ -10,7 +10,7 @@ from functools import partial
 
 load_dotenv()
 
-from constants import MIN_CHUNK_SIZE, MIN_SECTION_CHUNK_SIZE
+from constants import MAX_CHUNK_SIZE, MAX_SECTION_CHUNK_SIZE, MIN_CHUNK_SIZE, MIN_SECTION_CHUNK_SIZE
 from models import Document
 from processors import (
     assign_page_numbers_to_chunks,
@@ -22,11 +22,6 @@ from processors import (
 from utils import load_markdown, merge_pages, extract_page_map, count_tokens
 from logger_config import logger
 
-
-def create_section_chunks_sync(section_text: str, idx: int, min_chunk_size: int) -> List[str]:
-    chunks = create_chunks(section_text, min_chunk_size)
-    logger.info(f"Created {len(chunks)} chunks for section {idx}")
-    return chunks
 
 async def create_document_chunks(markdown_path: Path) -> Document:
     """
@@ -54,7 +49,7 @@ async def create_document_chunks(markdown_path: Path) -> Document:
     # Create sections
     section_start = time.perf_counter()
     logger.info("Creating and processing sections...")
-    sections = create_chunks(document.text, MIN_SECTION_CHUNK_SIZE)
+    sections = create_chunks(document.text, MIN_SECTION_CHUNK_SIZE, MAX_SECTION_CHUNK_SIZE)
     logger.info(f"Created {len(sections)} sections")
 
     # Start section processing task
@@ -66,7 +61,7 @@ async def create_document_chunks(markdown_path: Path) -> Document:
     
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         # Create a partial function with the fixed min_chunk_size parameter
-        chunk_creator = partial(create_chunks, min_chunk_size=MIN_CHUNK_SIZE)
+        chunk_creator = partial(create_chunks, min_chunk_size=MIN_CHUNK_SIZE, max_chunk_size=MAX_CHUNK_SIZE)
         # Submit all tasks to the process pool
         futures = [
             loop.run_in_executor(executor, chunk_creator, section_text)
