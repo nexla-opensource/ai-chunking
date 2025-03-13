@@ -1,0 +1,16 @@
+openai
+pydantic
+
+tiktoken
+langchain
+anthropic
+google-generativeai
+litellm
+instructor
+langchain_text_splitters
+langchain-openai
+
+# Can be removed
+tqdm
+numpy
+python-dotenv

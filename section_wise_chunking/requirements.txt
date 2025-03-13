@@ -1,6 +1,0 @@
-langchain
-langchain_experimental
-langchain-openai
-pydantic
-python-dotenv
-tiktoken

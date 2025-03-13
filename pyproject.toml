@@ -1,0 +1,89 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-chunking"
+version = "0.1.0"
+description = "A powerful Python library for semantic document chunking and enrichment using AI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["ai", "nlp", "document-processing", "chunking", "semantic-analysis", "rag", "embeddings"]
+authors = [
+    { name = "Amey Desai", email = "amey.desai@nexla.com" }
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: General",
+]
+dependencies = [
+    "openai>=1.0.0",
+    "aiohttp>=3.8.0",
+    "pydantic>=2.0.0",
+    "tiktoken>=0.5.0",
+    "langchain>=0.2.0",
+    "diskcache>=5.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "isort>=5.0",
+    "mypy>=1.0",
+    "ruff>=0.1.0",
+]
+docs = [
+    "sphinx>=7.0",
+    "sphinx-rtd-theme>=1.0",
+    "myst-parser>=2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/ai-chunking"
+Documentation = "https://docs.ai-chunking.org"
+Repository = "https://github.com/yourusername/ai-chunking.git"
+"Bug Tracker" = "https://github.com/yourusername/ai-chunking/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_chunking"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=ai_chunking"
+testpaths = [
+    "tests",
+]
+asyncio_mode = "auto"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+select = ["E", "F", "B", "I"]
+ignore = []
+line-length = 88
+target-version = "py38" 
