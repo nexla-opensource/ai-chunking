@@ -5,7 +5,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from ai_chunking.chunkers.base_chunker import BaseChunker
 from ai_chunking.models.chunk import Chunk
-from ai_chunking.utils import count_tokens
+from ai_chunking.utils.count_tokens import count_tokens
 from ai_chunking.utils.markdown_utils import load_markdown
 
 
@@ -63,13 +63,13 @@ class RecursiveTextSplitter(BaseChunker):
         
         # Split the text into chunks
         chunks = text_splitter.split_text(content)
-        print(f"Created {len(chunks)} chunks from {file_path.name}")
+        print(f"Created {len(chunks)} chunks from {file_path}")
         
         # Create chunk objects with metadata
         chunk_objects = []
         for chunk_text in chunks:
             chunk_obj = Chunk(text=chunk_text, metadata={
-                "filename": file_path.name,
+                "filename": Path(file_path).name,
                 "source_path": str(file_path),
                 "tokens_count": count_tokens(chunk_text)
             })

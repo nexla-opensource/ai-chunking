@@ -1,11 +1,11 @@
 from pathlib import Path
 from typing import List, Dict, Any
-from langchain_experimental.text_splitters import SemanticChunker
+from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings
 
 from ai_chunking.chunkers.base_chunker import BaseChunker
 from ai_chunking.models.chunk import Chunk
-from ai_chunking.utils import count_tokens
+from ai_chunking.utils.count_tokens import count_tokens
 from ai_chunking.utils.markdown_utils import load_markdown
 
 

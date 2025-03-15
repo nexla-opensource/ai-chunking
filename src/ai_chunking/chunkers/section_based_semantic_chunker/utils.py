@@ -6,18 +6,17 @@ import asyncio
 import tiktoken
 from litellm import AsyncOpenAI
 
-from constants import MODEL_NAME
-from json_utils import parse_json_response
-from prompts import SYSTEM_PROMPT
+from ai_chunking.utils.json_utils import parse_json_response
+from ai_chunking.chunkers.section_based_semantic_chunker.prompts import SYSTEM_PROMPT
 
 
-
+MODEL_NAME = "gpt-4o-mini"
 client = AsyncOpenAI()
 
-async def process_with_llm(prompt: str) -> Tuple[str, Dict]:
+async def process_with_llm(prompt: str, model_name: str = MODEL_NAME) -> Tuple[str, Dict]:
     """Process text with LLM and return summary and metadata"""
     response = await client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": prompt}

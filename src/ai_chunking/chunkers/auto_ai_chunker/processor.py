@@ -7,10 +7,10 @@ import math
 import os
 from typing import Dict, List, Optional, Tuple, Any
 
-from ai_chunking.chunkers.auto_chunking.chunk_builder import ChunkBuilder
-from ai_chunking.chunkers.auto_chunking.text_enricher import TextEnricher
+from ai_chunking.chunkers.auto_ai_chunker.chunk_builder import ChunkBuilder
+from ai_chunking.chunkers.auto_ai_chunker.text_enricher import TextEnricher
 from ai_chunking.llm.base import StructuredLLMClient
-from ai_chunking.chunkers.auto_chunking.models.document import Page, ProcessedChunk, TableData, EnrichedPageData, ContentType, Heading, HeadingType
+from ai_chunking.chunkers.auto_ai_chunker.models.document import Page, ProcessedChunk, TableData, EnrichedPageData, ContentType, Heading, HeadingType
 from ai_chunking.utils.json_utils import parse_json_response
 
 logger = logging.getLogger(__name__)

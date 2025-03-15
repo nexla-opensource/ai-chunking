@@ -4,15 +4,16 @@ __version__ = "0.1.0"
 
 
 from .chunkers.base_chunker import BaseChunker
-from .chunkers.recursive_text_splitting_chunker import RecursiveChunker
-from .chunkers.section_based_semantic_chunker import SectionBasedChunker
+from .chunkers.recursive_text_splitting_chunker import RecursiveTextSplitter
+from .chunkers.section_based_semantic_chunker import SectionBasedSemanticChunker
+from .chunkers.semantic_chunker import SemanticTextChunker
 # from .chunkers.auto_ai_chunker import AutoAIChunker
 
 
 __all__ = [
     "BaseChunker",
-    "SemanticChunker",
-    "RecursiveChunker",
-    "SectionBasedChunker",
+    "SemanticTextChunker",
+    "RecursiveTextSplitter",
+    "SectionBasedSemanticChunker",
     # "AutoAIChunker",
 ]

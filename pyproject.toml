@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ai-chunking"
-version = "0.1.0"
+version = "0.1.01"
 description = "A powerful Python library for semantic document chunking and enrichment using AI"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -32,6 +32,15 @@ dependencies = [
     "tiktoken>=0.5.0",
     "langchain>=0.2.0",
     "diskcache>=5.6.0",
+    "anthropic",
+    "google-generativeai",
+    "litellm",
+    "instructor",
+    "langchain_text_splitters",
+    "langchain-experimental",
+    "langchain-openai",
+    "tqdm",
+    "python-dotenv",
 ]
 
 [project.optional-dependencies]
@@ -51,10 +60,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/ai-chunking"
-Documentation = "https://docs.ai-chunking.org"
-Repository = "https://github.com/yourusername/ai-chunking.git"
-"Bug Tracker" = "https://github.com/yourusername/ai-chunking/issues"
+Homepage = "https://github.com/nexla-opensource/ai-chunking"
+Documentation = "https://github.com/nexla-opensource/ai-chunking"
+Repository = "https://github.com/nexla-opensource/ai-chunking.git"
+"Bug Tracker" = "https://github.com/nexla-opensource/ai-chunking/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ai_chunking"]

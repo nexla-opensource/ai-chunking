@@ -3,7 +3,7 @@ from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from ai_chunking.utils import count_tokens
+from ai_chunking.utils.count_tokens import count_tokens
 
 MAX_CHUNK_SIZE = 1024
 

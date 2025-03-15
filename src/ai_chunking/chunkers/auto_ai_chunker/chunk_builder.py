@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 from ai_chunking.llm.base import StructuredLLMClient, LLMError
 from ai_chunking.models.document import Chunk, ContentType, EnrichedPageData
 from ai_chunking.models.llm_responses import ContentAnalysis, Section, SemanticGroupingResponse
-from ai_chunking.chunkers.auto_chunking.prompts import semantic_grouping_prompt
+from ai_chunking.chunkers.auto_ai_chunker.prompts import semantic_grouping_prompt
 
 logger = logging.getLogger(__name__)
 

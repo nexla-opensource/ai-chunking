@@ -62,13 +62,13 @@ class Section(BaseModel):
 
 class Document(BaseModel):
     name: str
-    total_pages: int
-    tokens_count: int
     text: str
-    page_map: Dict[int, str]
-    creation_date: datetime = Field(default_factory=datetime.now)
+    tokens_count: int
+    total_pages: Optional[int] = None
+    page_map: Optional[Dict[int, str]] = None
     summary: Optional[Summary] = None
     sections: List[Section] = Field(default_factory=list)
+    creation_date: datetime = Field(default_factory=datetime.now)
     
     def to_dict(self):
         if not self.summary:

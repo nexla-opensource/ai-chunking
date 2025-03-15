@@ -3,9 +3,10 @@ import asyncio
 import time
 from typing import List, Optional
 from .models import Document, Section, Chunk, Summary
-from ai_chunking.utils import process_with_llm, count_tokens
+from .utils import process_with_llm
+from ai_chunking.utils.count_tokens import count_tokens
 from ai_chunking.chunkers.section_based_semantic_chunker.semantic_chunker import create_semantic_splitter
-from prompts import (
+from .prompts import (
     DOCUMENT_PROMPT,
     SECTION_PROMPT,
     CHUNK_PROMPT

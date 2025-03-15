@@ -1,19 +1,19 @@
 # AI Chunking
 
-A powerful Python library for semantic document chunking and enrichment using AI. This library provides intelligent document chunking capabilities for PDF, Word, and Markdown files using various chunking strategies.
+A powerful Python library for semantic document chunking and enrichment using AI. This library provides intelligent document chunking capabilities with various strategies to split text while preserving semantic meaning, particularly useful for processing markdown documentation.
 
 ## Features
 
 - Multiple chunking strategies:
-  - Semantic Chunking: AI-powered content-aware chunking
-  - Recursive Chunking: Hierarchical document splitting
-  - Section-based Semantic Chunking: Structure-aware semantic splitting
-  - Custom AI Chunking: Configurable AI-based chunking
+  - Recursive Text Splitting: Hierarchical document splitting with configurable chunk sizes
+  - Section-based Semantic Chunking: Structure-aware semantic splitting using section markers
+  - Base Chunking: Extensible base implementation for custom chunking strategies
 
-- Supported file formats:
-  - PDF documents
-  - Microsoft Word documents
-  - Markdown files
+- Key Benefits:
+  - Preserve semantic meaning across chunks
+  - Configurable chunk sizes and overlap
+  - Support for various text formats
+  - Easy to extend with custom chunking strategies
 
 ## Installation
 
@@ -24,82 +24,125 @@ pip install ai-chunking
 ## Quick Start
 
 ```python
-from ai_chunking import SemanticChunker
+from ai_chunking import RecursiveTextSplitter
 
-# Initialize a semantic chunker
-chunker = SemanticChunker(
+# Initialize a recursive text splitter
+chunker = RecursiveTextSplitter(
     chunk_size=500,
     chunk_overlap=50
 )
 
-# Process a document
-chunks = chunker.chunk_document("path/to/your/document.pdf")
+# Read and process a markdown file
+with open('documentation.md', 'r') as f:
+    markdown_content = f.read()
+
+chunks = chunker.split_text(markdown_content)
 
 # Access the chunks
-for chunk in chunks:
-    print(f"Chunk content: {chunk.text}")
-    print(f"Chunk metadata: {chunk.metadata}")
+for i, chunk in enumerate(chunks, 1):
+    print(f"Chunk {i}:\n{chunk}\n---")
 ```
 
 ## Usage Examples
 
-### Semantic Chunking
+### Recursive Text Splitting
+
+The `RecursiveTextSplitter` splits markdown content into chunks while preserving markdown structure:
 
 ```python
-from ai_chunking import SemanticChunker
+from ai_chunking import RecursiveTextSplitter
 
-chunker = SemanticChunker(
-    chunk_size=500,
-    chunk_overlap=50,
-    semantic_similarity_threshold=0.7
+splitter = RecursiveTextSplitter(
+    chunk_size=1000,  # Maximum size of each chunk
+    chunk_overlap=100,  # Overlap between chunks
+    separators=["\n## ", "\n### ", "\n\n", "\n", " "]  # Markdown-aware separators
 )
-```
 
-### Recursive Chunking
+# Process a large markdown documentation file
+with open('large_documentation.md', 'r') as f:
+    markdown_content = f.read()
 
-```python
-from ai_chunking import RecursiveChunker
+chunks = splitter.split_text(markdown_content)
 
-chunker = RecursiveChunker(
-    max_chunk_size=1000,
-    min_chunk_size=100,
-    overlap=50
-)
+# Save chunks to separate files for processing
+for i, chunk in enumerate(chunks, 1):
+    with open(f'chunk_{i}.md', 'w') as f:
+        f.write(chunk)
 ```
 
 ### Section-based Semantic Chunking
 
-```python
-from ai_chunking import SectionBasedChunker
+The `SectionBasedSemanticChunker` is particularly well-suited for markdown files as it respects heading hierarchy:
 
-chunker = SectionBasedChunker(
-    section_markers=["##", "###"],
-    semantic_threshold=0.8
+```python
+from ai_chunking import SectionBasedSemanticChunker
+
+chunker = SectionBasedSemanticChunker(
+    section_markers=["# ", "## ", "### "],  # Markdown heading levels
+    min_chunk_size=100,
+    max_chunk_size=1000
 )
+
+# Process markdown documentation
+with open('api_docs.md', 'r') as f:
+    markdown_content = f.read()
+
+chunks = chunker.split_text(markdown_content)
+
+# Print sections with their headings
+for i, chunk in enumerate(chunks, 1):
+    print(f"Section {i}:\n{chunk}\n---")
 ```
 
-### Custom AI Chunking
+### Custom Chunking Strategy
+
+You can create your own markdown-specific chunking strategy:
 
 ```python
-from ai_chunking import CustomAIChunker
+from ai_chunking import BaseChunker
+import re
 
-chunker = CustomAIChunker(
-    model="gpt-4",
-    chunk_strategy="custom",
-    config={
-        "max_tokens": 500,
-        "custom_rules": ["your_rules_here"]
-    }
-)
+class MarkdownChunker(BaseChunker):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.heading_pattern = re.compile(r'^#{1,6}\s+', re.MULTILINE)
+
+    def split_text(self, text: str) -> list[str]:
+        # Split on markdown headings while preserving them
+        sections = self.heading_pattern.split(text)
+        # Remove empty sections and trim whitespace
+        return [section.strip() for section in sections if section.strip()]
+
+# Usage
+chunker = MarkdownChunker()
+with open('README.md', 'r') as f:
+    chunks = chunker.split_text(f.read())
 ```
 
 ## Configuration
 
-Each chunker type accepts different configuration parameters. Please refer to the documentation for detailed configuration options.
+Each chunker accepts different configuration parameters:
+
+### RecursiveTextSplitter
+- `chunk_size`: Maximum size of each chunk (default: 500)
+- `chunk_overlap`: Number of characters to overlap between chunks (default: 50)
+- `separators`: List of separators to use for splitting (default: ["\n\n", "\n", " ", ""])
+
+### SectionBasedSemanticChunker
+- `section_markers`: List of strings that indicate section boundaries
+- `min_chunk_size`: Minimum size of a chunk (default: 100)
+- `max_chunk_size`: Maximum size of a chunk (default: 1000)
 
 ## Contributing
 
-We welcome contributions! Please see our contributing guidelines for more details.
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your feature
+3. Write tests for your changes
+4. Submit a pull request
+
+For more details, see our [Contributing Guidelines](CONTRIBUTING.md).
 
 ## License
 
@@ -107,8 +150,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- Documentation: [https://docs.ai-chunking.org](https://docs.ai-chunking.org)
-- Issue Tracker: [GitHub Issues](https://github.com/yourusername/ai-chunking/issues)
+- Issue Tracker: [GitHub Issues](https://github.com/nexla-opensource/ai-chunking/issues)
+- Documentation: Coming soon
 
 ## Citation
 
@@ -120,6 +163,6 @@ If you use this software in your research, please cite:
   author = {Desai, Amey},
   year = {2024},
   publisher = {GitHub},
-  url = {https://github.com/yourusername/ai-chunking}
+  url = {https://github.com/nexla-opensource/ai-chunking}
 }
 ```
