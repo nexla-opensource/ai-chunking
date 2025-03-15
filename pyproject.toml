@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ai-chunking"
-version = "0.1.01"
+version = "0.1.02"
 description = "A powerful Python library for semantic document chunking and enrichment using AI"
 readme = "README.md"
 requires-python = ">=3.8"

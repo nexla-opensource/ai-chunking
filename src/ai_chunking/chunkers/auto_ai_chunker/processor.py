@@ -11,6 +11,7 @@ from ai_chunking.chunkers.auto_ai_chunker.chunk_builder import ChunkBuilder
 from ai_chunking.chunkers.auto_ai_chunker.text_enricher import TextEnricher
 from ai_chunking.llm.base import StructuredLLMClient
 from ai_chunking.chunkers.auto_ai_chunker.models.document import Page, ProcessedChunk, TableData, EnrichedPageData, ContentType, Heading, HeadingType
+from ai_chunking.models.chunk import Chunk
 from ai_chunking.utils.json_utils import parse_json_response
 
 logger = logging.getLogger(__name__)
@@ -95,7 +96,7 @@ class DocumentProcessor:
         metadata: Optional[Dict] = None,
         customer_tags: Optional[List[str]] = None,
         source: str = ""
-    ) -> List[ProcessedChunk]:
+    ) -> List[Chunk]:
         """Process a document into semantic chunks using async processing.
         
         Args:
@@ -209,7 +210,19 @@ class DocumentProcessor:
         logger.info(
             f"Document processing complete. Created {len(processed_chunks)} chunks"
         )
-        return processed_chunks
+        chunks = [Chunk(
+            text=chunk.text,
+            metadata={
+                "page_number": chunk.page_number,
+                "content_type": chunk.content_type,
+                "tokens": chunk.tokens,
+                "summary": chunk.summary,
+                "parent_heading": chunk.parent_heading,
+                "headings": chunk.headings,
+                "tables": chunk.tables
+            }
+        ) for chunk in processed_chunks]
+        return chunks
 
     def _get_chunk_text(self, chunk, enriched_text_lines_map: Dict[int, str]) -> str:
         """Get chunk text considering gap ranges."""
