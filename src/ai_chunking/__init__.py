@@ -1,6 +1,6 @@
 """AI Chunking - A powerful Python library for semantic document chunking and enrichment using AI"""
 
-__version__ = "0.1.4"
+__version__ = "0.1.6"
 
 
 from .chunkers.base_chunker import BaseChunker

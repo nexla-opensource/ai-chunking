@@ -53,6 +53,23 @@ class SectionBasedSemanticChunker(BaseChunker):
             chunks = self.chunk_document(file_path)
             all_chunks.extend(chunks)
         return all_chunks
+    
+    def _run_async(self, coro):
+        """Safely run a coroutine in the appropriate event loop"""
+        try:
+            # Try to get the current event loop
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # If the loop is already running, use asyncio.run_coroutine_threadsafe
+                # or a new thread with asyncio.run()
+                future = concurrent.futures.ThreadPoolExecutor().submit(asyncio.run, coro)
+                return future.result()
+            else:
+                # If the loop exists but isn't running, use it
+                return loop.run_until_complete(coro)
+        except RuntimeError:
+            # If no event loop exists in this thread
+            return asyncio.run(coro)
 
     def chunk_document(self, file_path: str) -> List[Chunk]:
         """Process a single document synchronously"""
@@ -87,46 +104,38 @@ class SectionBasedSemanticChunker(BaseChunker):
             ]
             all_section_chunks = [future.result() for future in concurrent.futures.as_completed(section_chunks_futures)]
 
-        # Create a single event loop for all async operations
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        # Process sections using our safe async runner
+        processed_sections = self._run_async(process_sections(sections))
+        document.sections = processed_sections
+        section_time = time.perf_counter() - section_start
+        logger.info(f"Section processing took {section_time:.2f} seconds")
         
-        try:
-            # Process sections
-            processed_sections = loop.run_until_complete(process_sections(sections))
-            document.sections = processed_sections
-            section_time = time.perf_counter() - section_start
-            logger.info(f"Section processing took {section_time:.2f} seconds")
-            
-            # Create document summary
-            summary_start = time.perf_counter()
-            document.summary = loop.run_until_complete(
-                process_document_summary([section.summary for section in document.sections])
+        # Create document summary
+        summary_start = time.perf_counter()
+        document.summary = self._run_async(
+            process_document_summary([section.summary for section in document.sections])
+        )
+        summary_time = time.perf_counter() - summary_start
+        logger.info(f"Document summary creation took {summary_time:.2f} seconds")
+
+        # Process chunks for all sections
+        chunk_start = time.perf_counter()
+        logger.info("Processing chunks for all sections...")
+        
+        all_processed_chunks = []
+        for i, section in enumerate(document.sections):
+            chunks = all_section_chunks[i]
+            processed_chunks = self._run_async(
+                process_chunks(chunks, section.summary, document.summary)
             )
-            summary_time = time.perf_counter() - summary_start
-            logger.info(f"Document summary creation took {summary_time:.2f} seconds")
+            if not hasattr(section, 'chunks'):
+                section.chunks = []
+            section.chunks.extend(processed_chunks)
+            all_processed_chunks.extend(processed_chunks)
 
-            # Process chunks for all sections
-            chunk_start = time.perf_counter()
-            logger.info("Processing chunks for all sections...")
-            
-            all_processed_chunks = []
-            for i, section in enumerate(document.sections):
-                chunks = all_section_chunks[i]
-                processed_chunks = loop.run_until_complete(
-                    process_chunks(chunks, section.summary, document.summary)
-                )
-                if not hasattr(section, 'chunks'):
-                    section.chunks = []
-                section.chunks.extend(processed_chunks)
-                all_processed_chunks.extend(processed_chunks)
-
-            chunk_time = time.perf_counter() - chunk_start
-            logger.info(f"Chunk processing took {chunk_time:.2f} seconds")
-            
-        finally:
-            loop.close()
-            
+        chunk_time = time.perf_counter() - chunk_start
+        logger.info(f"Chunk processing took {chunk_time:.2f} seconds")
+        
         # Update chunk relationships
         relation_start = time.perf_counter()
         logger.info("Updating chunk relationships...")
