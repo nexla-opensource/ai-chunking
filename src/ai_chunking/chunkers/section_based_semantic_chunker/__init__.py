@@ -1,8 +1,8 @@
 import asyncio
+from pathlib import Path
 from typing import List
 import time
-import multiprocessing
-from concurrent.futures import ProcessPoolExecutor
+import concurrent.futures
 from functools import partial
 import logging
 
@@ -30,7 +30,6 @@ MODEL_NAME = "gpt-4o-mini"
 logger = logging.getLogger(__name__)
 
 
-
 class SectionBasedSemanticChunker(BaseChunker):
     def __init__(self, 
                  page_content_similarity_threshold: float = PAGE_CONTENT_SIMILARITY_THRESHOLD,
@@ -43,27 +42,20 @@ class SectionBasedSemanticChunker(BaseChunker):
         self.max_section_chunk_size = max_section_chunk_size
         self.min_chunk_size = min_chunk_size
         self.max_chunk_size = max_chunk_size
+        self._executor = concurrent.futures.ThreadPoolExecutor()
+
+    def chunk_text(self, text: str) -> List[Chunk]:
+        raise NotImplementedError("SectionBasedSemanticChunker does not support chunking text")
 
     def chunk_documents(self, file_paths: List[str]) -> List[Chunk]:
-        async def process_documents():
-            tasks = []
-            for file_path in file_paths:
-                tasks.append(self.chunk_document(file_path))
-            return await asyncio.gather(*tasks)
-
         all_chunks = []
-        results = asyncio.run(process_documents())
-        for document_chunks in results:
-            all_chunks.extend(document_chunks)
+        for file_path in file_paths:
+            chunks = self.chunk_document(file_path)
+            all_chunks.extend(chunks)
         return all_chunks
 
     def chunk_document(self, file_path: str) -> List[Chunk]:
-        return asyncio.run(self.chunk_document(file_path))
-
-    async def chunk_document(self, file_path: str) -> List[Chunk]:
-        """
-        Main function to create semantic chunks from markdown document with parallel processing
-        """
+        """Process a single document synchronously"""
         start_time = time.perf_counter()
         
         # Load and prepare document
@@ -71,7 +63,7 @@ class SectionBasedSemanticChunker(BaseChunker):
         initial_tokens_count = count_tokens(content)
         
         document = Document(
-            name=file_path.stem,
+            name=Path(file_path).stem,
             text=content,
             tokens_count=initial_tokens_count, 
         )
@@ -82,87 +74,78 @@ class SectionBasedSemanticChunker(BaseChunker):
         # Create sections
         section_start = time.perf_counter()
         logger.info("Creating and processing sections...")
-        sections = create_chunks(document.text, MIN_SECTION_CHUNK_SIZE, MAX_SECTION_CHUNK_SIZE)
+        sections = create_chunks(document.text, self.min_section_chunk_size, self.max_section_chunk_size)
         logger.info(f"Created {len(sections)} sections")
 
-        # Start section processing task
-        sections_task = process_sections(sections)
-        
-        # Create chunks for all sections using multiprocessing
-        loop = asyncio.get_event_loop()
-        max_workers = min(multiprocessing.cpu_count(), len(sections))  # Don't create more processes than sections
-        
-        with ProcessPoolExecutor(max_workers=max_workers) as executor:
-            # Create a partial function with the fixed min_chunk_size parameter
-            chunk_creator = partial(create_chunks, min_chunk_size=MIN_CHUNK_SIZE, max_chunk_size=MAX_CHUNK_SIZE)
-            # Submit all tasks to the process pool
-            futures = [
-                loop.run_in_executor(executor, chunk_creator, section_text)
-                for idx, section_text in enumerate(sections)
+        # Process sections concurrently using ThreadPoolExecutor
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            # Create chunks for all sections concurrently
+            chunk_creator = partial(create_chunks, min_chunk_size=self.min_chunk_size, max_chunk_size=self.max_chunk_size)
+            section_chunks_futures = [
+                executor.submit(chunk_creator, section_text)
+                for section_text in sections
             ]
-            all_section_chunks = await asyncio.gather(*futures)
-        
-        # Wait for section processing to complete
-        processed_sections = await sections_task
-        document.sections = processed_sections
-        section_time = time.perf_counter() - section_start
-        logger.info(f"Section processing took {section_time:.2f} seconds")
-        
-        # Create document summary
-        summary_start = time.perf_counter()
-        document.summary = await process_document_summary([section.summary for section in document.sections])
-        summary_time = time.perf_counter() - summary_start
-        logger.info(f"Document summary creation took {summary_time:.2f} seconds")
+            all_section_chunks = [future.result() for future in concurrent.futures.as_completed(section_chunks_futures)]
 
-        # Process chunks for all sections in parallel
-        chunk_start = time.perf_counter()
-        logger.info("Processing chunks for all sections...")
-        chunk_tasks = []
+        # Create a single event loop for all async operations
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         
-        # Launch all chunk processing tasks at once
-        for i, section in enumerate(document.sections):
-            # We already pre-computed chunks while waiting for sections
-            chunks = all_section_chunks[i]
-            # Process all chunks for a section at once
-            task = process_chunks(chunks, section.summary, document.summary)
-            chunk_tasks.append((section, task))
-        
-        # Process all chunks in parallel
-        chunk_results = await asyncio.gather(*(task for _, task in chunk_tasks))
-        
-        # Assign chunks back to their sections
-        for (section, _), processed_chunks in zip(chunk_tasks, chunk_results):
-            if not hasattr(section, 'chunks'):
-                section.chunks = []
-            section.chunks.extend(processed_chunks)
-        chunk_time = time.perf_counter() - chunk_start
-        logger.info(f"Chunk processing took {chunk_time:.2f} seconds")
-        
+        try:
+            # Process sections
+            processed_sections = loop.run_until_complete(process_sections(sections))
+            document.sections = processed_sections
+            section_time = time.perf_counter() - section_start
+            logger.info(f"Section processing took {section_time:.2f} seconds")
+            
+            # Create document summary
+            summary_start = time.perf_counter()
+            document.summary = loop.run_until_complete(
+                process_document_summary([section.summary for section in document.sections])
+            )
+            summary_time = time.perf_counter() - summary_start
+            logger.info(f"Document summary creation took {summary_time:.2f} seconds")
+
+            # Process chunks for all sections
+            chunk_start = time.perf_counter()
+            logger.info("Processing chunks for all sections...")
+            
+            all_processed_chunks = []
+            for i, section in enumerate(document.sections):
+                chunks = all_section_chunks[i]
+                processed_chunks = loop.run_until_complete(
+                    process_chunks(chunks, section.summary, document.summary)
+                )
+                if not hasattr(section, 'chunks'):
+                    section.chunks = []
+                section.chunks.extend(processed_chunks)
+                all_processed_chunks.extend(processed_chunks)
+
+            chunk_time = time.perf_counter() - chunk_start
+            logger.info(f"Chunk processing took {chunk_time:.2f} seconds")
+            
+        finally:
+            loop.close()
+            
         # Update chunk relationships
         relation_start = time.perf_counter()
         logger.info("Updating chunk relationships...")
         
-        # Create a flat list of all chunks across all sections
-        all_chunks = []
-        for section in document.sections:
-            all_chunks.extend(section.chunks)
-        
-        # Update relationships across all chunks
-        for i, chunk in enumerate(all_chunks):
+        for i, chunk in enumerate(all_processed_chunks):
             if i > 0:
-                chunk.previous_chunk_summary = all_chunks[i-1].summary.text
-            if i < len(all_chunks) - 1:
-                chunk.next_chunk_summary = all_chunks[i+1].summary.text
+                chunk.previous_chunk_summary = all_processed_chunks[i-1].summary.text
+            if i < len(all_processed_chunks) - 1:
+                chunk.next_chunk_summary = all_processed_chunks[i+1].summary.text
         
         relation_time = time.perf_counter() - relation_start
         logger.info(f"Chunk relationship updates took {relation_time:.2f} seconds")
         
         # Efficiently assign page numbers to chunks
-        page_start = time.perf_counter()
-        logger.info("Updating the page numbers to the chunks")
-        assign_page_numbers_to_chunks(document)
-        page_time = time.perf_counter() - page_start
-        logger.info(f"Page number assignment took {page_time:.2f} seconds")
+        # page_start = time.perf_counter()
+        # logger.info("Updating the page numbers to the chunks")
+        # assign_page_numbers_to_chunks(document)
+        # page_time = time.perf_counter() - page_start
+        # logger.info(f"Page number assignment took {page_time:.2f} seconds")
         
         total_time = time.perf_counter() - start_time
         logger.info(f"Document processed: {document.name}, {document.total_pages} pages, {document.tokens_count} tokens")
@@ -178,6 +161,9 @@ class SectionBasedSemanticChunker(BaseChunker):
             "previous_chunk_summary": chunk.previous_chunk_summary,
             "next_chunk_summary": chunk.next_chunk_summary,
             "questions_this_excerpt_can_answer": chunk.questions_this_excerpt_can_answer    
-        }) for chunk in all_chunks]
+        }) for chunk in all_processed_chunks]
 
         return chunks
+
+    def __del__(self):
+        self._executor.shutdown(wait=True)

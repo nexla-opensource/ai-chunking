@@ -5,7 +5,6 @@ from typing import Any, Dict, Optional, Type, TypeVar, Union
 from pydantic import BaseModel
 
 from .base import StructuredLLMClient
-from ..models.llm_responses import ContentAnalysis, HeadingAnalysis, TableAnalysis
 
 T = TypeVar('T', bound=BaseModel)
 

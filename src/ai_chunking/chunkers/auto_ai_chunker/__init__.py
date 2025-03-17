@@ -1,5 +1,6 @@
 import os
 from typing import List
+import asyncio
 
 from ai_chunking.chunkers.auto_ai_chunker.models.document import Page
 from ai_chunking.chunkers.auto_ai_chunker.processor import DocumentProcessor
@@ -36,20 +37,20 @@ class AutoAIChunker:
             large_llm_client=large_llm
         )
     
-    async def chunk_documents(self, documents: List[str]) -> List[Chunk]:
+    def chunk_documents(self, documents: List[str]) -> List[Chunk]:
         chunks = []
         for document in documents:
-            chunks.extend(await self.chunk_document(document))
+            chunks.extend(self.chunk_document(document))
         return chunks
     
-    async def chunk_document(self, document: str) -> List[Chunk]:
+    def chunk_document(self, document: str) -> List[Chunk]:
         content = load_markdown(document)
-        chunks = await self.processor.process_document(
+        chunks = asyncio.run(self.processor.process_document(
             pages=[Page(text=content, page_number=1)],
             table_data=[],
             metadata={},
             source=document
-        )
+        ))
         return chunks
     
     

@@ -2,10 +2,14 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from ..models.chunk import Chunk
+from ..utils.logging import logger
 
 
 class BaseChunker(ABC):
     """Base class for all chunker implementations."""
+    
+    def __init__(self):
+        self.logger = logger
     
     @abstractmethod
     def chunk_documents(self, file_paths: List[str]) -> List[Chunk]:
@@ -17,6 +21,7 @@ class BaseChunker(ABC):
         Returns:
             List of chunks
         """
+        self.logger.info(f"Processing {len(file_paths)} documents")
         pass
 
     @abstractmethod
@@ -26,6 +31,7 @@ class BaseChunker(ABC):
         Args:
             file_path: Path to the document to process
         """
+        self.logger.info(f"Processing document: {file_path}")
         pass
 
     @abstractmethod
@@ -35,4 +41,5 @@ class BaseChunker(ABC):
         Args:
             text: Text to process
         """
+        self.logger.info("Processing text input")
         pass
