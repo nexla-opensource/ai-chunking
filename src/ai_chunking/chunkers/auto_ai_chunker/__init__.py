@@ -1,6 +1,7 @@
 import os
 from typing import List
 import asyncio
+import concurrent.futures
 
 from ai_chunking.chunkers.auto_ai_chunker.models.document import Page
 from ai_chunking.chunkers.auto_ai_chunker.processor import DocumentProcessor
@@ -37,6 +38,32 @@ class AutoAIChunker:
             large_llm_client=large_llm
         )
     
+    def _run_async(self, coro):
+        """Safely run a coroutine in the appropriate event loop"""
+        try:
+            # Try to get the current event loop
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # If the loop is already running, create a new loop in a new thread
+                import threading
+                import functools
+                
+                def run_in_new_loop(coro):
+                    new_loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(new_loop)
+                    return new_loop.run_until_complete(coro)
+                
+                # Run in a new thread with a new event loop
+                with concurrent.futures.ThreadPoolExecutor() as pool:
+                    future = pool.submit(run_in_new_loop, coro)
+                    return future.result()
+            else:
+                # If the loop exists but isn't running, use it
+                return loop.run_until_complete(coro)
+        except RuntimeError:
+            # If no event loop exists in this thread
+            return asyncio.run(coro)
+    
     def chunk_documents(self, documents: List[str]) -> List[Chunk]:
         chunks = []
         for document in documents:
@@ -45,7 +72,7 @@ class AutoAIChunker:
     
     def chunk_document(self, document: str) -> List[Chunk]:
         content = load_markdown(document)
-        chunks = asyncio.run(self.processor.process_document(
+        chunks = self._run_async(self.processor.process_document(
             pages=[Page(text=content, page_number=1)],
             table_data=[],
             metadata={},

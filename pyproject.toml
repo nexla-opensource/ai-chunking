@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai-chunking"
-version = "0.1.6"
+version = "0.1.8"
 description = "A powerful Python library for semantic document chunking and enrichment using AI"
 authors = ["Amey Desai <amey.desai@nexla.com>"]
 license = "MIT"

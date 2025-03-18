@@ -15,83 +15,111 @@ A powerful Python library for semantic document chunking and enrichment using AI
   - Support for various text formats
   - Easy to extend with custom chunking strategies
 
+## Chunking Strategies
+
+### RecursiveTextSplitter
+Uses a hierarchical approach to split documents at natural breakpoints while maintaining context. It works by recursively splitting text using a list of separators in order of priority (headings, paragraphs, sentences, words).
+
+- **Use when**: You have structured text with clear headings and sections and want simple, reliable chunking.
+- **Benefits**: Fast, deterministic, maintains hierarchical structure.
+
+### SemanticTextChunker
+Uses embeddings to find natural semantic breakpoints in text, creating chunks that preserve meaning regardless of formatting or explicit structure markers.
+
+- **Use when**: Working with documents without clear section markers or when meaning preservation is critical.
+- **Benefits**: Creates cohesive chunks based on semantic similarity rather than arbitrary length.
+
+### SectionBasedSemanticChunker
+Processes documents by first identifying logical sections, then creating semantically meaningful chunks within each section. Enriches chunks with section and document summaries, providing rich context.
+
+- **Use when**: You need deeper semantic understanding of document structure and relationships between sections.
+- **Benefits**: Preserves document structure, adds rich metadata including section summaries and contextual relationships.
+
+### AutoAIChunker
+The most advanced chunker that uses LLMs to intelligently analyze document structure, creating optimal chunks with rich metadata and summaries.
+
+- **Use when**: You need maximum semantic understanding and are willing to trade processing time for quality.
+- **Benefits**: Superior chunk quality, rich metadata generation, deep semantic understanding.
+
 ## Installation
 
 ```bash
 pip install ai-chunking
 ```
 
-## Quick Start
+## Environment Setup
+
+To use the semantic chunking capabilities, you need to set up the following environment variables:
+
+### Required Environment Variables
+
+```bash
+# Required for semantic chunkers (SemanticTextChunker, SectionBasedSemanticChunker, AutoAIChunker)
+export OPENAI_API_KEY=your_openai_api_key_here
+```
+
+
+You can also set these environment variables in your Python code:
 
 ```python
-from ai_chunking import RecursiveTextSplitter
-
-# Initialize a recursive text splitter
-chunker = RecursiveTextSplitter(
-    chunk_size=500,
-    chunk_overlap=50
-)
-
-# Read and process a markdown file
-with open('documentation.md', 'r') as f:
-    markdown_content = f.read()
-
-chunks = chunker.split_text(markdown_content)
-
-# Access the chunks
-for i, chunk in enumerate(chunks, 1):
-    print(f"Chunk {i}:\n{chunk}\n---")
+import os
+os.environ["OPENAI_API_KEY"] = "your_openai_api_key_here"
 ```
 
 ## Usage Examples
 
-### Recursive Text Splitting
+### Processing Multiple Documents
 
-The `RecursiveTextSplitter` splits markdown content into chunks while preserving markdown structure:
+Each chunker type supports processing multiple documents together:
 
 ```python
 from ai_chunking import RecursiveTextSplitter
 
-splitter = RecursiveTextSplitter(
-    chunk_size=1000,  # Maximum size of each chunk
-    chunk_overlap=100,  # Overlap between chunks
-    separators=["\n## ", "\n### ", "\n\n", "\n", " "]  # Markdown-aware separators
+chunker = RecursiveTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=100
 )
 
-# Process a large markdown documentation file
-with open('large_documentation.md', 'r') as f:
-    markdown_content = f.read()
+# List of markdown files to process
+files = ['document1.md', 'document2.md', 'document3.md']
 
-chunks = splitter.split_text(markdown_content)
+# Process all documents at once
+all_chunks = chunker.chunk_documents(files)
 
-# Save chunks to separate files for processing
-for i, chunk in enumerate(chunks, 1):
-    with open(f'chunk_{i}.md', 'w') as f:
-        f.write(chunk)
+print(f"Processed {len(files)} documents into {len(all_chunks)} chunks")
 ```
 
-### Section-based Semantic Chunking
-
-The `SectionBasedSemanticChunker` is particularly well-suited for markdown files as it respects heading hierarchy:
+### Processing Multiple Documents with Semantic Chunkers
 
 ```python
-from ai_chunking import SectionBasedSemanticChunker
+from ai_chunking import SectionBasedSemanticChunker, SemanticTextChunker
 
-chunker = SectionBasedSemanticChunker(
-    section_markers=["# ", "## ", "### "],  # Markdown heading levels
-    min_chunk_size=100,
-    max_chunk_size=1000
+# Choose the chunker based on your needs
+chunker = SemanticTextChunker(
+    chunk_size=1000,
+    similarity_threshold=0.85
 )
 
-# Process markdown documentation
-with open('api_docs.md', 'r') as f:
-    markdown_content = f.read()
+# Or use the more advanced section-based chunker
+# chunker = SectionBasedSemanticChunker(
+#     min_chunk_size=100,
+#     max_chunk_size=1000
+# )
 
-chunks = chunker.split_text(markdown_content)
+# List of files to process
+markdown_files = ['user_guide.md', 'api_reference.md', 'tutorials.md']
 
-# Print sections with their headings
-for i, chunk in enumerate(chunks, 1):
-    print(f"Section {i}:\n{chunk}\n---")
+# Process all documents, getting enriched chunks with metadata
+all_chunks = chunker.chunk_documents(markdown_files)
+
+# Access metadata for each chunk
+for i, chunk in enumerate(all_chunks):
+    print(f"Chunk {i}:")
+    print(f"  Source: {chunk.metadata.get('filename')}")
+    print(f"  Tokens: {chunk.metadata.get('tokens_count')}")
+    if 'summary' in chunk.metadata:
+        print(f"  Summary: {chunk.metadata.get('summary')}")
+    print(f"  Text snippet: {chunk.text[:100]}...\n")
 ```
 
 ### Custom Chunking Strategy
@@ -107,16 +135,20 @@ class MarkdownChunker(BaseChunker):
         super().__init__(**kwargs)
         self.heading_pattern = re.compile(r'^#{1,6}\s+', re.MULTILINE)
 
-    def split_text(self, text: str) -> list[str]:
-        # Split on markdown headings while preserving them
-        sections = self.heading_pattern.split(text)
-        # Remove empty sections and trim whitespace
-        return [section.strip() for section in sections if section.strip()]
+    def chunk_documents(self, files: list[str]) -> list[str]:
+        chunks = []
+        for file in files:
+            with open(file, 'r') as f:
+                content = f.read()
+                # Split on markdown headings while preserving them
+                sections = self.heading_pattern.split(content)
+                # Remove empty sections and trim whitespace
+                chunks.extend([section.strip() for section in sections if section.strip()])
+        return chunks
 
 # Usage
 chunker = MarkdownChunker()
-with open('README.md', 'r') as f:
-    chunks = chunker.split_text(f.read())
+chunks = chunker.chunk_documents(['README.md', 'CONTRIBUTING.md'])
 ```
 
 ## Configuration
@@ -128,10 +160,39 @@ Each chunker accepts different configuration parameters:
 - `chunk_overlap`: Number of characters to overlap between chunks (default: 50)
 - `separators`: List of separators to use for splitting (default: ["\n\n", "\n", " ", ""])
 
+### SemanticTextChunker
+- `chunk_size`: Maximum chunk size in tokens (default: 1024)
+- `min_chunk_size`: Minimum chunk size in tokens (default: 128)
+- `similarity_threshold`: Threshold for semantic similarity when determining breakpoints (default: 0.9)
+
+The chunker uses OpenAI's text-embedding-3-small model for embeddings to determine semantic breakpoints in the text. If chunks are too large, they are further split using recursive semantic chunking. If chunks are too small, they are merged with adjacent chunks when possible.
+
+Each chunk includes metadata:
+- Source filename
+- Token count
+- Source path
+
 ### SectionBasedSemanticChunker
-- `section_markers`: List of strings that indicate section boundaries
-- `min_chunk_size`: Minimum size of a chunk (default: 100)
-- `max_chunk_size`: Maximum size of a chunk (default: 1000)
+- `min_section_chunk_size`: Minimum size for section chunks in tokens (default: 5000)
+- `max_section_chunk_size`: Maximum size for section chunks in tokens (default: 50000)
+- `min_chunk_size`: Minimum size for individual chunks in tokens (default: 128)
+- `max_chunk_size`: Maximum size for individual chunks in tokens (default: 1000)
+- `page_content_similarity_threshold`: Threshold for content similarity between pages (default: 0.8)
+
+The chunker uses OpenAI's text-embedding-3-small model for embeddings with dynamic threshold settings:
+- For chunks ≤ 500 tokens: 80% threshold (more aggressive splitting)
+- For chunks 501-1000 tokens: 85% threshold (moderate splitting)
+- For chunks > 1000 tokens: 90% threshold (less aggressive splitting)
+
+Each chunk includes rich metadata:
+- Unique chunk ID
+- Text content and token count
+- Page numbers
+- Summary with metadata
+- Global context
+- Section and document summaries
+- Previous/Next chunk summaries
+- List of questions the excerpt can answer
 
 ## Contributing
 

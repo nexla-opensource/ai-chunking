@@ -60,10 +60,16 @@ class SectionBasedSemanticChunker(BaseChunker):
             # Try to get the current event loop
             loop = asyncio.get_event_loop()
             if loop.is_running():
-                # If the loop is already running, use asyncio.run_coroutine_threadsafe
-                # or a new thread with asyncio.run()
-                future = concurrent.futures.ThreadPoolExecutor().submit(asyncio.run, coro)
-                return future.result()
+                # If the loop is already running, create a new loop in a new thread
+                def run_in_new_loop(coro):
+                    new_loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(new_loop)
+                    return new_loop.run_until_complete(coro)
+                
+                # Run in a new thread with a new event loop
+                with concurrent.futures.ThreadPoolExecutor() as pool:
+                    future = pool.submit(run_in_new_loop, coro)
+                    return future.result()
             else:
                 # If the loop exists but isn't running, use it
                 return loop.run_until_complete(coro)
