@@ -11,10 +11,11 @@ from ai_chunking.chunkers.section_based_semantic_chunker.prompts import SYSTEM_P
 
 
 MODEL_NAME = "gpt-4o-mini"
-client = AsyncOpenAI()
+
 
 async def process_with_llm(prompt: str, model_name: str = MODEL_NAME) -> Tuple[str, Dict]:
     """Process text with LLM and return summary and metadata"""
+    client = AsyncOpenAI()
     response = await client.chat.completions.create(
         model=model_name,
         messages=[
