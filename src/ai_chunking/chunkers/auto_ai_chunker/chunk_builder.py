@@ -50,6 +50,7 @@ def carve_out_subsections(section: Section, section_start: int, section_end: int
                     start_index=section_start,
                     end_index=first_sub.start_index - 1,
                     summary=section.summary,
+                    questions=getattr(section, 'questions', []),
                     page_number=getattr(section, 'page_number', 1)
                 )
             )
@@ -77,6 +78,7 @@ def carve_out_subsections(section: Section, section_start: int, section_end: int
                 start_index=sub_start,
                 end_index=sub_end,
                 summary=sub.summary,
+                questions=getattr(sub, 'questions', []),
                 page_number=getattr(section, 'page_number', 1)
             )
         )
@@ -111,6 +113,7 @@ def merge_single_line_chunks(chunks: List[Chunk], total_number_of_lines: int) ->
                 start_index=1,
                 end_index=nxt.end_index,
                 summary=nxt.summary,
+                questions=getattr(nxt, 'questions', []),
                 page_number=nxt.page_number
             )
             merged.append(new_chunk)
@@ -132,6 +135,7 @@ def merge_single_line_chunks(chunks: List[Chunk], total_number_of_lines: int) ->
                 start_index=prev.start_index,
                 end_index=total_number_of_lines,
                 summary=prev.summary,
+                questions=getattr(prev, 'questions', []),
                 page_number=prev.page_number
             )
             merged[-1] = new_chunk
@@ -209,6 +213,7 @@ def create_chunks_from_structured_document(sections: List[Section], total_number
                 start_index=section_start,
                 end_index=section_end,
                 summary=sec.summary,
+                questions=getattr(sec, 'questions', []),
                 page_number=getattr(sec, 'page_number', 1)
             )
             all_chunks.append(c)
@@ -252,6 +257,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
             # Only merge if same content type
             if current.content_type == next_chunk.content_type:
                 # Create merged chunk
+                merged_questions = getattr(current, 'questions', []) + getattr(next_chunk, 'questions', [])
                 merged_chunk = Chunk(
                     parent_title=current.parent_title,
                     title=f"{current.title} & {next_chunk.title}",
@@ -259,6 +265,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
                     start_index=current.start_index,
                     end_index=next_chunk.end_index,
                     summary=f"{current.summary}\n{next_chunk.summary}".strip(),
+                    questions=merged_questions,
                     sub_titles=current.sub_titles + next_chunk.sub_titles,
                     gap_index_range=current.gap_index_range + next_chunk.gap_index_range,
                     page_number=current.page_number
@@ -268,6 +275,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
                 continue
             elif i == 0 and len(chunks) > 1:
                 # Merge first and second chunk even if different content types
+                merged_questions = getattr(current, 'questions', []) + getattr(next_chunk, 'questions', [])
                 merged_chunk = Chunk(
                     parent_title=next_chunk.parent_title,
                     title=f"{current.title} & {next_chunk.title}",
@@ -275,6 +283,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
                     start_index=current.start_index,
                     end_index=next_chunk.end_index,
                     summary=f"{current.summary}\n{next_chunk.summary}".strip(),
+                    questions=merged_questions,
                     sub_titles=current.sub_titles + next_chunk.sub_titles,
                     gap_index_range=current.gap_index_range + next_chunk.gap_index_range,
                     page_number=current.page_number
@@ -285,6 +294,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
             elif i == len(chunks) - 1 and len(merged) > 0:
                 # Merge last chunk with previous chunk even if different content types
                 prev_chunk = merged.pop()
+                merged_questions = getattr(prev_chunk, 'questions', []) + getattr(current, 'questions', [])
                 merged_chunk = Chunk(
                     parent_title=prev_chunk.parent_title,
                     title=f"{prev_chunk.title} & {current.title}",
@@ -292,6 +302,7 @@ def merge_chunks_by_tokens(chunks: List[Chunk]) -> List[Chunk]:
                     start_index=prev_chunk.start_index,
                     end_index=current.end_index,
                     summary=f"{prev_chunk.summary}\n{current.summary}".strip(),
+                    questions=merged_questions,
                     sub_titles=prev_chunk.sub_titles + current.sub_titles,
                     gap_index_range=prev_chunk.gap_index_range + current.gap_index_range,
                     page_number=prev_chunk.page_number

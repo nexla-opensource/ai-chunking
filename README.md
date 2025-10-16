@@ -41,6 +41,13 @@ The most advanced chunker that uses LLMs to intelligently analyze document struc
 - **Use when**: You need maximum semantic understanding and are willing to trade processing time for quality.
 - **Benefits**: Superior chunk quality, rich metadata generation, deep semantic understanding.
 
+### MarkdownAIChunker
+Optimized semantic chunker specifically designed for markdown documents. Uses regex-based heading extraction combined with LLM-powered semantic chunking for optimal performance and cost efficiency.
+
+- **Use when**: Processing standard markdown files with clear heading structure. Optimized for markdown documents, created by Microsoft Markitdown library [https://github.com/microsoft/markitdown](https://github.com/microsoft/markitdown).
+- **Benefits**: 70% cheaper than AutoAIChunker, 3-5x faster processing, automatic footer detection and questions generation.
+- **Question Generation**: Automatically generates 2-4 potential questions for each chunk to enhance searchability and retrieval.
+
 ## Installation
 
 ```bash
@@ -120,6 +127,34 @@ for i, chunk in enumerate(all_chunks):
     if 'summary' in chunk.metadata:
         print(f"  Summary: {chunk.metadata.get('summary')}")
     print(f"  Text snippet: {chunk.text[:100]}...\n")
+```
+
+### Processing Markdown Documents with MarkdownAIChunker
+
+```python
+from ai_chunking.chunkers.markdown_ai_chunker import MarkdownAIChunker
+
+# Initialize the chunker with optional features
+chunker = MarkdownAIChunker(
+    enrich_with_questions=True,  # Generate questions for each chunk
+    exclude_footer=True,         # Automatically detect and remove footer content
+    max_input_tokens=12000       # Split large documents, before sending to LLM to identify chunks
+)
+
+# Process a single markdown file
+chunks = chunker.chunk_document("document.md")
+
+# Process multiple files
+files = ['blog_post.md', 'tutorial.md', 'api_docs.md']
+all_chunks = chunker.chunk_documents(files)
+
+# Access enriched metadata
+for chunk in chunks:
+    print(f"Title: {chunk.metadata.get('document_title')}")
+    print(f"Summary: {chunk.metadata.get('summary')}")
+    print(f"Questions: {chunk.metadata.get('questions', [])}")
+    print(f"Content Type: {chunk.metadata.get('content_type')}")
+    print(f"Text: {chunk.text[:200]}...\n")
 ```
 
 ### Custom Chunking Strategy
