@@ -177,8 +177,12 @@ class LLMCache:
                 response_model: Optional[Type[T]] = None,
                 **kwargs: Any
             ) -> Union[str, T]:
+                # When caching is disabled, call the underlying function with the
+                # appropriate signature (structured_generate vs generate)
                 if not self.config.enabled:
-                    return await func(self_obj, prompt, response_model, **kwargs)
+                    if response_model is not None:
+                        return await func(self_obj, prompt, response_model, **kwargs)
+                    return await func(self_obj, prompt, **kwargs)
                 
                 # Generate cache key from request parameters
                 cache_key = self._generate_cache_key(
@@ -198,7 +202,10 @@ class LLMCache:
                     return cached_response
                 
                 # If not in cache, call original function
-                response = await func(self_obj, prompt, response_model, **kwargs)
+                if response_model is not None:
+                    response = await func(self_obj, prompt, response_model, **kwargs)
+                else:
+                    response = await func(self_obj, prompt, **kwargs)
                 
                 # Cache the response
                 to_cache = response.model_dump() if isinstance(response, BaseModel) else response

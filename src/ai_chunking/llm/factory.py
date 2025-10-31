@@ -1,7 +1,7 @@
 """Factory for creating LLM clients."""
 
 from enum import Enum
-from typing import Optional, Type, Any
+from typing import Optional, Any, Union
 
 from .adapter import StructuredLLMAdapter
 from .base import StructuredLLMClient, LLMConfig
@@ -43,8 +43,8 @@ class LLMFactory:
     @classmethod
     def create(
         cls,
-        provider: str,
-        api_key: str,
+        provider: Union[str, LLMProvider],
+        api_key: Optional[str] = None,
         config: Optional[LLMConfig] = None,
         **kwargs: Any
     ) -> StructuredLLMClient:
@@ -62,14 +62,12 @@ class LLMFactory:
         Raises:
             ValueError: If provider is not supported or api_key is invalid
         """
-        if not provider or not isinstance(provider, str):
-            raise ValueError("Provider must be a non-empty string")
-            
-        if not api_key or not isinstance(api_key, str):
-            raise ValueError("API key must be a non-empty string")
-            
+        if not provider:
+            raise ValueError("Provider must be specified")
+
+        # Normalize provider to enum
         try:
-            provider_enum = LLMProvider(provider.lower())
+            provider_enum = provider if isinstance(provider, LLMProvider) else LLMProvider(str(provider).lower())
         except ValueError:
             supported = ", ".join(sorted(p.value for p in LLMProvider))
             raise ValueError(
@@ -78,12 +76,31 @@ class LLMFactory:
             )
             
         client_class = cls._provider_to_class[provider_enum]
-        structured_client = client_class(
-            api_key=api_key,
-            model=config.model if config else None,
-            temperature=config.temperature if config else 0.0,
-            max_retries=config.max_retries if config else 3,
-            **kwargs
-        )
+
+        # Build init kwargs while avoiding passing None for model
+        init_kwargs: dict[str, Any] = {}
+        if config is not None:
+            init_kwargs["model"] = config.model
+            init_kwargs["temperature"] = config.temperature
+            init_kwargs["max_retries"] = config.max_retries
+
+        # Provider-specific handling
+        if provider_enum == LLMProvider.VERTEX:
+            project_id = kwargs.pop("project_id", None)
+            if not project_id:
+                raise ValueError("Vertex provider requires 'project_id' to be provided via kwargs")
+            structured_client = client_class(
+                project_id=project_id,
+                **init_kwargs,
+                **kwargs,
+            )
+        else:
+            if not api_key or not isinstance(api_key, str):
+                raise ValueError("API key must be a non-empty string for this provider")
+            structured_client = client_class(
+                api_key=api_key,
+                **init_kwargs,
+                **kwargs,
+            )
         
-        return StructuredLLMAdapter(structured_client) 
+        return StructuredLLMAdapter(structured_client)

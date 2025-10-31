@@ -1,4 +1,3 @@
-from chunk import Chunk
 from pathlib import Path
 from typing import List, Dict
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -7,6 +6,7 @@ from ai_chunking.chunkers.base_chunker import BaseChunker
 from ai_chunking.models.chunk import Chunk
 from ai_chunking.utils.count_tokens import count_tokens
 from ai_chunking.utils.markdown_utils import load_markdown
+from ai_chunking.utils.logging import logger
 
 
 class RecursiveTextSplitter(BaseChunker):
@@ -39,7 +39,7 @@ class RecursiveTextSplitter(BaseChunker):
     def chunk_document(self, file_path: str) -> List[Chunk]:
         return self.chunk_markdown_file(file_path)
 
-    def chunk_markdown_file(self, file_path: Path) -> List[Dict]:
+    def chunk_markdown_file(self, file_path: Path) -> List[Chunk]:
         """
         Process a markdown file: remove pagination, join content, and split into chunks
         
@@ -49,9 +49,10 @@ class RecursiveTextSplitter(BaseChunker):
         Returns:
             List of chunk dictionaries with text and metadata
         """
-        print(f"Processing {file_path}")
+        logger.info(f"Processing {file_path}")
         
-        # Load content and extract page information
+        # Normalize to Path and load content
+        file_path = Path(file_path)
         content = load_markdown(file_path)
         
         # Create text splitter with recursive character splitting
@@ -63,7 +64,7 @@ class RecursiveTextSplitter(BaseChunker):
         
         # Split the text into chunks
         chunks = text_splitter.split_text(content)
-        print(f"Created {len(chunks)} chunks from {file_path}")
+        logger.info(f"Created {len(chunks)} chunks from {file_path}")
         
         # Create chunk objects with metadata
         chunk_objects = []

@@ -13,10 +13,10 @@ class BaseChunker(ABC):
     
     @abstractmethod
     def chunk_documents(self, file_paths: List[str]) -> List[Chunk]:
-        """Process a document and return chunks.
+        """Process multiple documents and return chunks.
 
         Args:
-            file_path: Path to the document to process
+            file_paths: Paths to the documents to process
             
         Returns:
             List of chunks

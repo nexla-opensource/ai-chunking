@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 import asyncio
 import tiktoken
-from litellm import AsyncOpenAI
+from openai import AsyncOpenAI
 
 from ai_chunking.utils.json_utils import parse_json_response
 from ai_chunking.chunkers.section_based_semantic_chunker.prompts import SYSTEM_PROMPT
@@ -13,8 +13,8 @@ from ai_chunking.chunkers.section_based_semantic_chunker.prompts import SYSTEM_P
 MODEL_NAME = "gpt-4o-mini"
 
 
-async def process_with_llm(prompt: str, model_name: str = MODEL_NAME) -> Tuple[str, Dict]:
-    """Process text with LLM and return summary and metadata"""
+async def process_with_llm(prompt: str, model_name: str = MODEL_NAME) -> Dict:
+    """Process text with LLM and return structured JSON response as dict"""
     client = AsyncOpenAI()
     response = await client.chat.completions.create(
         model=model_name,
@@ -42,6 +42,5 @@ async def run_concurrent_tasks(tasks: List[asyncio.Task], max_concurrent: int = 
         *(wrapped_task(task) for task in tasks),
         return_exceptions=True
     )
-
 
 
