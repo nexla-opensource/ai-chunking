@@ -43,13 +43,19 @@ class Section(BaseModel):
     end_index: Optional[int] = Field(None, description="Ending line number")
     content_type: ContentType = Field(..., description="Type of content in the section")
     summary: str = Field(..., description="Brief summary of the section content")
+    questions: List[str] = Field(default_factory=list, description="Potential questions this section answers")
     continued: bool = Field(default=False, description="Whether this section continues from previous page")
     sub_sections: List["Section"] = Field(default_factory=list, description="List of sub-sections")
     page_number: Optional[int] = Field(None, description="Page number where this section appears")
 
 class SemanticGroupingResponse(BaseModel):
     """Response model for semantic grouping of document content."""
+    document_title: str = Field(..., description="Main topic/title of the entire document inferred from content")
     sections: List[Section] = Field(..., description="List of sections in the document")
+
+class FooterDetectionResponse(BaseModel):
+    """Response model for footer detection in the last chunk."""
+    footer_start_line: Optional[int] = Field(None, description="Line number where footer content begins, or null if no footer")
 
 # Required for recursive Pydantic models
 Section.model_rebuild() 

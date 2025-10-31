@@ -90,6 +90,8 @@ class Chunk(BaseModel):
     start_index: int = Field(ge=0, description="Start index must be non-negative")
     end_index: int
     summary: str = ""
+    questions: List[str] = Field(default_factory=list, description="Potential questions this chunk answers")
+    document_title: Optional[str] = Field(default=None, description="Main document title inferred from content")
     sub_titles: List[Optional[str]] = Field(default_factory=list)
     gap_index_range: List[Tuple[int, int]] = Field(default_factory=list)
     page_number: Optional[int] = Field(default=None, description="Page number where this chunk appears")

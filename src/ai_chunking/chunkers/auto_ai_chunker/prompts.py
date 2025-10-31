@@ -236,13 +236,28 @@ Your task is to produce a **unique list of headings** that should be included in
 def semantic_grouping_prompt(
     text_with_line_numbers: str,
     headings: tuple,  # Convert list to tuple for hashable input
-    total_number_of_lines: int
+    total_number_of_lines: int,
+    enrich_with_questions: bool = False
 ) -> str:
     """Generate prompt for semantic grouping of text."""
+    questions_instruction = ""
+    if enrich_with_questions:
+        questions_instruction = """
+- **questions**: A list of 2-4 potential questions that this section answers.
+  - Every question must explicitly include relevant document title/topics/sub-topics from the section, be self-contained and independent from other questions.
+  - Questions must clearly and precisely specify context to eliminate ambiguity
+  - Directly incorporate keywords to enhance clarity and relevance
+  - Use natural language that users would search for
+"""
+  
     return f"""
 Read the document below and extract a `StructuredDocument` object from it. The goal is to group lines into meaningful sections and sub-sections based on their topics, using detected headings to guide the structure. This grouping will be used for question-answering purposes, so ensure that sections and sub-sections are comprehensive, logically grouped, and capture all relevant information.
 
-In addition, classify each section and sub-section by assigning a `content_type` from the following set:
+**Document Title:**
+First, infer and provide a `document_title` - a concise main topic or title for the entire document (5-15 words). This should capture the primary subject matter.
+
+**Content Classification:**
+Classify each section and sub-section by assigning a `content_type` from the following set:
 
 - **Metrics**  
   Content primarily focused on quantitative data such as performance metrics, numerical results, percentages, returns, or other factual statistics.
@@ -319,7 +334,7 @@ When you identify a heading line:
 - Each section and sub-section must have a `start_index` to indicate the line where it begins (inclusive). `start_index` should start from 1 and not 0.
 - The first section must begin at the first line of the document.
 - Sections and sub-sections must together cover the entire document, leaving no gaps.
-- `start_index` and `end_index` must be within the range of `total_number_of_lines`.
+- `start_index` must be within the range of `total_number_of_lines`.
 
 **Descriptive Titles:**
 - Titles for sections and sub-sections must succinctly summarize their content.
@@ -331,6 +346,8 @@ When you identify a heading line:
 **Summary:**
 - Each section and sub-section must have a `summary` field that is a concise summary of the section or sub-section. Keep it short and to the point.
 
+{questions_instruction}
+
 **Completeness for Question-Answering:**
 - Group related content together for comprehensiveness.
 - Avoid splitting logically related content across multiple sections unless it creates meaningful sub-sections of a larger topic.
@@ -338,6 +355,7 @@ When you identify a heading line:
 ### Output Format:
 Return a JSON object in the following structure:
 {{
+  "document_title": "Main Document Title (5-15 words)",
   "sections": [
     {{
       "title": "Main Section Title",
