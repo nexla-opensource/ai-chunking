@@ -219,7 +219,8 @@ class DocumentProcessor:
                 "summary": chunk.summary,
                 "parent_heading": chunk.parent_heading,
                 "headings": chunk.headings,
-                "tables": chunk.tables
+                "tables": chunk.tables,
+                **chunk.metadata  # Include all metadata from the ProcessedChunk
             }
         ) for chunk in processed_chunks]
         return chunks

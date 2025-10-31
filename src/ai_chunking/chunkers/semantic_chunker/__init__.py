@@ -44,7 +44,7 @@ class SemanticTextChunker(BaseChunker):
         )
     
 
-    def chunk_text(self, text: str) -> List[Dict[str, Any]]:
+    def chunk_text(self, text: str) -> List[str]:
         """
         Process a text and return chunks.
         """

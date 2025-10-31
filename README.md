@@ -66,6 +66,33 @@ import os
 os.environ["OPENAI_API_KEY"] = "your_openai_api_key_here"
 ```
 
+### Supported LLM Providers
+
+The library includes adapters for multiple providers via `ai_chunking.llm`:
+
+- OpenAI (requires `OPENAI_API_KEY`)
+- Anthropic (requires `ANTHROPIC_API_KEY`)
+- Google Gemini (requires `GOOGLE_API_KEY`)
+- Vertex AI (requires `project_id`; configure Google auth separately)
+- Groq (requires `GROQ_API_KEY`)
+- Cohere (requires `COHERE_API_KEY`)
+- LiteLLM (requires provider-specific API key via `LITELLM_API_KEY`)
+
+Note: Vertex AI client requires `project_id` instead of an API key. Pass it when creating the client via the factory if you integrate directly.
+
+### Optional: Response Caching
+
+LLM response caching can be enabled via environment variables:
+
+```bash
+export AI_CHUNKING_CACHE_ENABLED=true
+# disk | memory | fanout
+export AI_CHUNKING_CACHE_BACKEND=disk
+export AI_CHUNKING_CACHE_DIR=~/.ai_chunking/llm_cache
+# optional TTL in seconds
+export AI_CHUNKING_CACHE_TTL=86400
+```
+
 ## Usage Examples
 
 ### Processing Multiple Documents

@@ -1,4 +1,5 @@
 import tiktoken
+from ai_chunking.utils.logging import logger
 
 
 def count_tokens(text: str) -> int:
@@ -17,5 +18,5 @@ def count_tokens(text: str) -> int:
         return len(encoding.encode(text))
     except Exception as e:
         # Fallback to a simple approximation if tiktoken fails
-        print(f"Error counting tokens: {e}")
-        return len(text.split()) * 1.3  # Rough approximation
+        logger.warning(f"Error counting tokens while using tiktoken: {e}")
+        return int(round(len(text.split()) * 1.3))  # Rough approximation as integer

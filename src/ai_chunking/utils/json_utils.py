@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional, Union, TypeVar, List
 
 T = TypeVar('T')
 
-def extract_json_from_text(text: str) -> Dict[str, Any]:
+def extract_json_from_text(text: str) -> Union[Dict[str, Any], List[Any]]:
     """
     Extract the first JSON object from text by scanning character by character.
     
@@ -17,7 +17,7 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
         text: The text to extract JSON from
         
     Returns:
-        Dict[str, Any]: The extracted JSON object
+        Union[Dict[str, Any], List[Any]]: The extracted JSON object or array
         
     Raises:
         ValueError: If no valid JSON object is found in the text or if JSON is malformed
