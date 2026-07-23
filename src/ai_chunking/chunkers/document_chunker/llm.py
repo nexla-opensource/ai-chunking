@@ -15,16 +15,21 @@ logger = logging.getLogger("ai_chunking.chunkers.document_chunker")
 
 # ==== LLM Service ====
 class LLMService:
-    def __init__(self, cfg: Config, api_key: str):
+    def __init__(self, cfg: Config, api_key: str, use_vertex: bool = True):
         self.cfg = cfg
-        # Agent Platform (aiplatform.googleapis.com) express-mode key auth.
-        # The key's API restrictions must allow aiplatform.googleapis.com.
-        # No api_version pin: v1beta is Developer-API-specific and breaks
-        # Agent Platform routing.
-        self.client = genai.Client(
-            vertexai=True,
-            api_key=api_key,
-        )
+        self.use_vertex = use_vertex
+        if use_vertex:
+            # Agent Platform (aiplatform.googleapis.com) express-mode key auth.
+            # The key's API restrictions must allow aiplatform.googleapis.com.
+            # No api_version pin: v1beta is Developer-API-specific and breaks
+            # Agent Platform routing.
+            self.client = genai.Client(
+                vertexai=True,
+                api_key=api_key,
+            )
+        else:
+            # Plain Gemini Developer API key.
+            self.client = genai.Client(api_key=api_key)
 
     def count_tokens(self, text: str) -> int:
         try:

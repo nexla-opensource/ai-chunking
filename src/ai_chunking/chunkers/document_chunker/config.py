@@ -10,9 +10,9 @@ logger = logging.getLogger("ai_chunking.chunkers.document_chunker")
 # ==== Config ====
 @dataclass
 class Config:
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL") or "gemini-2.5-flash"
-    GEMINI_LITE_MODEL: str = os.getenv("GEMINI_LITE_MODEL") or "gemini-2.5-flash-lite"
-    GEMINI_METADATA_MODEL: str = os.getenv("GEMINI_METADATA_MODEL") or "gemini-3-flash-preview"
+    GEMINI_MODEL: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL") or "gemini-2.5-flash")
+    GEMINI_LITE_MODEL: str = field(default_factory=lambda: os.getenv("GEMINI_LITE_MODEL") or "gemini-2.5-flash-lite")
+    GEMINI_METADATA_MODEL: str = field(default_factory=lambda: os.getenv("GEMINI_METADATA_MODEL") or "gemini-3-flash-preview")
 
     MAX_TOKEN_LIMIT: int = 900_000
     MAX_CHARS_PER_BLOCK: int = 2_200_000
@@ -34,7 +34,7 @@ class Config:
                                            # skip vision even when page was flagged visual.
     VISION_BATCH_SIZE: int = 4             # Pages per multi-image vision call.
 
-    USE_HEADING_DRIVEN_CHUNKING: bool = os.getenv("CHUNKER_USE_HEADING_DRIVEN", "1").lower() in ("1", "true", "yes")
+    USE_HEADING_DRIVEN_CHUNKING: bool = field(default_factory=lambda: os.getenv("CHUNKER_USE_HEADING_DRIVEN", "1").lower() in ("1", "true", "yes"))
     HEADING_MIN_SECTION_LINES: int = 3        # Sections shorter than this get merged with next.
     HEADING_MAX_SECTION_LINES: int = 120      # Sections longer than this get split.
     CHUNK_METADATA_BATCH_SIZE: int = 6        # Chunks per metadata-enrichment LLM call.
@@ -46,7 +46,7 @@ class Config:
                                      # a post-section-merge guard (see
                                      # _merge_small_sections_by_chars).
 
-    VERIFY_CHUNKS: bool = os.getenv("CHUNKER_VERIFY_CHUNKS", "1").lower() in ("1", "true", "yes")
+    VERIFY_CHUNKS: bool = field(default_factory=lambda: os.getenv("CHUNKER_VERIFY_CHUNKS", "1").lower() in ("1", "true", "yes"))
     VERIFY_SAMPLE_RATE: float = 0.35           # Fraction of chunks to verify
     VERIFY_MIN_SAMPLE: int = 6                 # Always verify at least this many
     VERIFY_BATCH_SIZE: int = 6                 # Chunks per verification LLM call
@@ -58,7 +58,7 @@ class Config:
     VERIFY_MAX_WALLCLOCK_SEC: int = 180         # Wall-clock cap on the verify loop.
     VERIFY_REQUIRE_MONOTONIC: bool = True       # Stop retrying if a round didn't reduce drift.
 
-    STRUCTURED_TABLE_EXTRACTION: bool = os.getenv("CHUNKER_STRUCTURED_TABLES", "1").lower() in ("1", "true", "yes")
+    STRUCTURED_TABLE_EXTRACTION: bool = field(default_factory=lambda: os.getenv("CHUNKER_STRUCTURED_TABLES", "1").lower() in ("1", "true", "yes"))
     STRUCTURED_TABLE_BATCH_SIZE: int = 4
     STRUCTURED_TABLE_CONTENT_TYPES: Tuple[str, ...] = ("metrics", "comparisons")
     STRUCTURED_TABLE_VALIDATE: bool = True

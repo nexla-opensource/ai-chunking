@@ -26,10 +26,10 @@ logger = logging.getLogger("ai_chunking.chunkers.document_chunker")
 
 # ==== Document Pipeline ====
 class DocumentPipeline:
-    def __init__(self, cfg: Config, api_key: str, custom_instructions: Optional[str] = None):
+    def __init__(self, cfg: Config, api_key: str, custom_instructions: Optional[str] = None, use_vertex: bool = True):
         self.cfg = cfg
         self.pricing = PricingConfig()  # Initialize pricing configuration
-        self.llm = LLMService(cfg, api_key=api_key)
+        self.llm = LLMService(cfg, api_key=api_key, use_vertex=use_vertex)
         self.profiler = PDFProfiler()
         self.pages = PageProcessor()
         self.merger = Merger()
@@ -3102,12 +3102,6 @@ class DocumentPipeline:
         logger.info(f"  File ID       : {file_id}")
         logger.info(f"  nexla_meta keys: {list((nexla_meta or {}).keys())}")
         logger.info(f"  tags keys      : {list(tags.keys())}")
-        logger.info(f"  ---- nexla_meta full dump ----")
-        for k, v in (nexla_meta or {}).items():
-            logger.info(f"    nexla_meta[{k}] = {v}")
-        logger.info(f"  ---- tags full dump ----")
-        for k, v in tags.items():
-            logger.info(f"    tags[{k}] = {v}")
 
         handlers = {
             ".pdf": self._handle_pdf,
