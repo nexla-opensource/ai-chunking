@@ -8,6 +8,7 @@ from .chunkers.recursive_text_splitting_chunker import RecursiveTextSplitter
 from .chunkers.section_based_semantic_chunker import SectionBasedSemanticChunker
 from .chunkers.semantic_chunker import SemanticTextChunker
 from .chunkers.auto_ai_chunker import AutoAIChunker
+from ai_chunking.chunkers.document_chunker import DocumentChunker
 
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     "RecursiveTextSplitter",
     "SectionBasedSemanticChunker",
     "AutoAIChunker",
+    "DocumentChunker",
 ]
