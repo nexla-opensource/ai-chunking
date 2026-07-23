@@ -45,6 +45,14 @@ python-dotenv = "*"
 vertexai = ">=1.71.1"
 groq = ">=0.18.0"
 cohere = ">=4.48"
+google-genai = "*"
+pdfplumber = ">=0.11.0"
+# <3.0 required: Merger._fill_chunk_numbers uses a groupby().apply() pattern whose
+# grouping-column handling changed in pandas 3 (drops page_number -> KeyError).
+# Modernizing that call is tracked for the post-parity cleanup phase.
+pandas = ">=2.0.0,<3.0.0"
+numpy = ">=1.24.0"
+openpyxl = ">=3.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.0"

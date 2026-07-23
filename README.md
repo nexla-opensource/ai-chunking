@@ -41,6 +41,23 @@ The most advanced chunker that uses LLMs to intelligently analyze document struc
 - **Use when**: You need maximum semantic understanding and are willing to trade processing time for quality.
 - **Benefits**: Superior chunk quality, rich metadata generation, deep semantic understanding.
 
+### DocumentChunker
+A multi-format, production-grade pipeline (ported from Nexla's production document transform — see `src/ai_chunking/chunkers/document_chunker/PROVENANCE.md`). Ingests **PDF, CSV, Excel, and image files** directly: profiles PDF pages and applies Gemini vision OCR to scanned/visual pages, detects headings with an LLM, chunks deterministically from the detected structure, enriches chunks with metadata, and optionally verifies chunk quality with a sampled LLM-judge pass. Gemini-backed (`google-genai` SDK).
+
+- **Use when**: You need to chunk binary documents (PDFs including scanned ones, spreadsheets, images) rather than pre-converted markdown, with page-level provenance and rich metadata.
+- **Benefits**: Multi-format ingestion, vision OCR, heading-driven deterministic chunking, freshness-date extraction, structured-table extraction, per-document token/cost accounting.
+
+```python
+from ai_chunking import DocumentChunker
+
+chunker = DocumentChunker(api_key="your_gemini_api_key")  # or set GOOGLE_API_KEY / GEMINI_API_KEY
+chunks = chunker.chunk_document("financial_report.pdf")
+for chunk in chunks:
+    print(chunk.metadata.get("page_number"), chunk.text[:80])
+```
+
+Requires a Gemini API key (`GOOGLE_API_KEY` or `GEMINI_API_KEY`). By default the key is treated as a Vertex AI Agent-Platform express-mode key (the production configuration); pass `use_vertex=False` if you have a plain Gemini Developer API key. Behavior knobs (models, timeouts, chunk sizes, verification budgets) are exposed on `ai_chunking.chunkers.document_chunker.Config`, which can be passed via the `config=` parameter.
+
 ## Installation
 
 ```bash
