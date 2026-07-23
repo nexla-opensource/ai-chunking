@@ -1,0 +1,32 @@
+{
+  "329c25d696c7767972802217a05c41c300958d8fc0672b51e29feb136b293850": {
+    "method": "agen_vision",
+    "model": "gemini-2.5-flash",
+    "response": "```json\n{\n  \"summary\": \"The image displays a concise quarterly financial report for Q1 2024, indicating a total revenue of $1,250,000. Its purpose is to quickly communicate a key financial performance metric for the specified period.\",\n  \"chunk_text\": \"The scene depicted in the image is a minimalist text-based report, likely a snippet from a financial document, a dashboard, or a simple data display. The background is plain white, drawing full attention to the textual information presented.\\n\\nThe only significant objects identified in the image are lines of text. There are no people, animals, or other graphical elements present.\\n\\nAll visible text has been transcribed as follows:\\nQUARTERLY REPORT\\nQ1 2024 (ending 2024-03-31)\\nTotal revenue: $1,250,000\\n\\nThe image does not contain any charts, graphs, or tables in a visual format. However, it presents structured financial data. It specifies a 'QUARTERLY REPORT' for 'Q1 2024', which concluded on '2024-03-31'. The primary data point provided is the 'Total revenue' for this period, which is stated as '$1,250,000'. This data represents a key financial performance indicator for the first fiscal quarter of 2024.\\n\\nBased on the elements, the image's likely purpose is to provide a quick and clear overview of a company's or entity's total revenue for the first quarter of 2024, serving as a summary or a key highlight from a larger financial report.\"\n}\n```"
+  },
+  "37ecc48366e6a4b76d962262016a7abe7be75e11517bf79ae0666a196be0b52e": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 3
+  },
+  "44710c7725e08921e0a94559faa14165780b42c293069d5f46b8663a8bd1231f": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 369
+  },
+  "dde87ebf4a4d41d27a37189c950b1c0a1bc7b32240d4e97a6ec11ca5f8dc4f12": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 177
+  },
+  "e7985bfb96b9f1daf3e13a15d26680cf90e7b341727dc19b4617498e70016d88": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash-lite",
+    "response": "\"Unknown\""
+  },
+  "f4f807dcfce9bb4a040f4cfe3608b277d3927520a8282e009178a9946259420e": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 285
+  }
+}

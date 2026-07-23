@@ -1,0 +1,945 @@
+{
+  "fixture": "loan-extraction.pdf",
+  "outputs": {
+    "loan-extraction.json": {
+      "columns": [
+        "page_number",
+        "chunk_number",
+        "chunk_text",
+        "contextualized_chunk_text",
+        "source_info",
+        "freshness_date",
+        "freshness_date_unix",
+        "summary",
+        "topic",
+        "section",
+        "universal",
+        "sub_topics",
+        "customer_specific_tags",
+        "section_reference",
+        "parent_section_id",
+        "split_index",
+        "split_total",
+        "debug_info",
+        "heading_type",
+        "parent_title",
+        "content_type",
+        "potential_questions",
+        "structured_tables"
+      ],
+      "records": [
+        {
+          "page_number": "1",
+          "chunk_number": "1",
+          "chunk_text": "To be completed by the Lender:\nLender Loan No./Universal Loan Identifier CXSDF2344 Agency Case No. 3453244\nUniform Residential Loan Application\nVerify and complete the information on this application. If you are applying for this loan with others, each additional Borrower must provide\ninformation as directed by your Lender.",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | CXSDF2344 | 3453244] [Topic: Loan Application Header and Lender Identifiers]\n\nTo be completed by the Lender:\nLender Loan No./Universal Loan Identifier CXSDF2344 Agency Case No. 3453244\nUniform Residential Loan Application\nVerify and complete the information on this application. If you are applying for this loan with others, each additional Borrower must provide\ninformation as directed by your Lender.",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk contains the document title and specific identification numbers including the Lender Loan Number and Agency Case Number.",
+          "topic": "Loan Application Header and Lender Identifiers",
+          "section": "",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | CXSDF2344 | 3453244",
+          "sub_topics": "Lender Loan Number, Universal Loan Identifier, Agency Case Number, Application Instructions",
+          "customer_specific_tags": [],
+          "section_reference": "",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "instructions",
+          "potential_questions": [
+            "What is the Lender Loan Number/Universal Loan Identifier for this application?",
+            "What is the Agency Case Number listed on the document?",
+            "What is the official title of this loan application form?",
+            "Who is responsible for completing the top section of the application?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "2",
+          "chunk_text": "Section 1: Borrower Information.\nThis section asks about your personal information and your income from\nemployment and other sources, such as retirement, that you want considered to qualify for this loan.",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021] [Section: Section 1: Borrower Information.] [Topic: Overview of Borrower Information Section] [Reference: Section 1]\n\nSection 1: Borrower Information.\nThis section asks about your personal information and your income from\nemployment and other sources, such as retirement, that you want considered to qualify for this loan.",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This section introduces the collection of personal data and income sources required to qualify for the loan.",
+          "topic": "Overview of Borrower Information Section",
+          "section": "Section 1: Borrower Information.",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021",
+          "sub_topics": "Personal Information, Employment Income, Retirement Income, Loan Qualification",
+          "customer_specific_tags": [],
+          "section_reference": "Section 1",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "What is the primary purpose of Section 1?",
+            "What types of income sources are mentioned as examples for qualification?",
+            "What categories of information are requested in the Borrower Information section?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "3",
+          "chunk_text": "1a. Personal Information\nName (First, Middle, Last, Suffix) Social Security Number \u2013 \u2013\nJohn Simon (or Individual Taxpayer Identification Number)",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021] [Section: 1a. Personal Information] [Topic: Borrower Personal Identification] [Reference: 1a]\n\n1a. Personal Information\nName (First, Middle, Last, Suffix) Social Security Number \u2013 \u2013\nJohn Simon (or Individual Taxpayer Identification Number)",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk records the borrower's full name and provides fields for tax identification numbers.",
+          "topic": "Borrower Personal Identification",
+          "section": "1a. Personal Information",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021",
+          "sub_topics": "Borrower Name, Social Security Number, Individual Taxpayer Identification Number",
+          "customer_specific_tags": [],
+          "section_reference": "1a",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "What is the full name of the borrower listed in section 1a?",
+            "What types of identification numbers can be entered in this section?",
+            "What is the middle name of the borrower John Simon?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "4",
+          "chunk_text": "Alternate Names \u2013 List any names by which you are known or any names Date of Birth Citizenship\nunder which credit was previously received (First, Middle, Last, Suffix) (mm/dd/yyyy) \u25cf U.S. Citizen\nFergusan 02 / 45 / 34 Permanent Resident Alien\nNon-Permanent Resident Alien",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021] [Section: Alternate Names \u2013 List any names by which you are known or any names Date of Birth Citizenship] [Topic: Borrower Aliases, Birth Date, and Citizenship]\n\nAlternate Names \u2013 List any names by which you are known or any names Date of Birth Citizenship\nunder which credit was previously received (First, Middle, Last, Suffix) (mm/dd/yyyy) \u25cf U.S. Citizen\nFergusan 02 / 45 / 34 Permanent Resident Alien\nNon-Permanent Resident Alien",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk details the borrower's alternate names, date of birth, and U.S. citizenship status.",
+          "topic": "Borrower Aliases, Birth Date, and Citizenship",
+          "section": "Alternate Names \u2013 List any names by which you are known or any names Date of Birth Citizenship",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021",
+          "sub_topics": "Alternate Names, Date of Birth, Citizenship Status, Residency Status",
+          "customer_specific_tags": [],
+          "section_reference": "",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "What alternate name is listed for the borrower?",
+            "What is the borrower's recorded date of birth?",
+            "What is the citizenship status of the borrower?",
+            "Under what name was credit previously received by the borrower?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "5",
+          "chunk_text": "Type of Credit List Name(s) of Other Borrower(s) Applying for this Loan\n\u25cf I am applying for individual credit. (First, Middle, Last, Suffix) \u2013 Use a separator between names\nI am applying for joint credit. Total Number of Borrowers:\nEach Borrower intends to apply for joint credit. Your initials:",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021] [Section: Type of Credit List Name(s) of Other Borrower(s) Applying for this Loan] [Topic: Credit Application Type and Borrower Count]\n\nType of Credit List Name(s) of Other Borrower(s) Applying for this Loan\n\u25cf I am applying for individual credit. (First, Middle, Last, Suffix) \u2013 Use a separator between names\nI am applying for joint credit. Total Number of Borrowers:\nEach Borrower intends to apply for joint credit. Your initials:",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk specifies that the application is for individual credit and outlines the requirements for joint credit applications.",
+          "topic": "Credit Application Type and Borrower Count",
+          "section": "Type of Credit List Name(s) of Other Borrower(s) Applying for this Loan",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021",
+          "sub_topics": "Individual Credit, Joint Credit, Total Number of Borrowers",
+          "customer_specific_tags": [],
+          "section_reference": "",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "Is the borrower applying for individual or joint credit?",
+            "What is required if each borrower intends to apply for joint credit?",
+            "Where should the names of other borrowers be listed if applying for joint credit?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "6",
+          "chunk_text": "Marital Status Dependents (not listed by another Borrower) Contact Information\n\u25cf Married Number 5 Home Phone ( 234 ) 893 \u2013 9039\nSeparated Ages 23,45,56,2,4 Cell Phone ( 782 ) 892 \u2013 2345\nUnmarried\nWork Phone ( ) \u2013 Ext.\n(Single, Divorced, Widowed, Civil Union, Domestic Partnership, Registered\nReciprocal Beneficiary Relationship) Emailjoe@gailinvestments.com",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021] [Section: Marital Status Dependents (not listed by another Borrower) Contact Information] [Topic: Borrower Marital Status, Dependents, and Contact Info]\n\nMarital Status Dependents (not listed by another Borrower) Contact Information\n\u25cf Married Number 5 Home Phone ( 234 ) 893 \u2013 9039\nSeparated Ages 23,45,56,2,4 Cell Phone ( 782 ) 892 \u2013 2345\nUnmarried\nWork Phone ( ) \u2013 Ext.\n(Single, Divorced, Widowed, Civil Union, Domestic Partnership, Registered\nReciprocal Beneficiary Relationship) Emailjoe@gailinvestments.com",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk provides the borrower's marital status, details on five dependents, and comprehensive contact information including phone numbers and email.",
+          "topic": "Borrower Marital Status, Dependents, and Contact Info",
+          "section": "Marital Status Dependents (not listed by another Borrower) Contact Information",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021",
+          "sub_topics": "Marital Status, Dependents, Home Phone, Cell Phone, Email Address",
+          "customer_specific_tags": [],
+          "section_reference": "",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What is the borrower's marital status?",
+            "How many dependents are listed for the borrower?",
+            "What are the ages of the borrower's dependents?",
+            "What is the borrower's email address?",
+            "What is the borrower's home phone number?"
+          ],
+          "structured_tables": "[{\"title\": \"Borrower Marital Status, Dependents, and Contact Info\", \"headers\": [\"Field\", \"Value\"], \"rows\": [[\"Marital Status\", \"Married\"], [\"Number of Dependents\", \"5\"], [\"Ages of Dependents\", \"23,45,56,2,4\"], [\"Home Phone\", \"( 234 ) 893 \\u2013 9039\"], [\"Cell Phone\", \"( 782 ) 892 \\u2013 2345\"], [\"Work Phone\", \"( ) \\u2013 Ext.\"], [\"Email\", \"joe@gailinvestments.com\"], [\"Street\", \"Newport Avenue, 12500, Jefferson Ave\"], [\"City\", \"Kansas\"], [\"ZIP\", \"785\"], [\"Country\", \"USA\"], [\"How Long at Current Address?\", \"4 Years 3 Months\"], [\"Housing Type\", \"Rent\"], [\"Monthly Rent\", \"$ 200 /month\"]], \"notes\": \"Marital status 'Married' is selected via bullet point. Other options (Separated, Unmarried) are listed but not selected. [validation: 2/15 cells (13%) not directly grounded in source \\u2014 verify before use] [bridged: +7 rows from chunk 7]\"}]"
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "7",
+          "chunk_text": "Current Address\nStreet Newport Avenue, 12500, Jefferson Ave Unit #\nCity Kansas State ZIP 785 CountryUSA\nHow Long at Current Address? 4 Years 3 Months Housing No primary housing expense Own \u25cf Rent ($ 200 /month)",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: Current Address] [Topic: Current Residential Address and Housing Expense] [Reference: Current Address]\n\nCurrent Address\nStreet Newport Avenue, 12500, Jefferson Ave Unit #\nCity Kansas State ZIP 785 CountryUSA\nHow Long at Current Address? 4 Years 3 Months Housing No primary housing expense Own \u25cf Rent ($ 200 /month)",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk provides the applicant's current address in Kansas, where they have resided for 4 years and 3 months, paying $200 in monthly rent.",
+          "topic": "Current Residential Address and Housing Expense",
+          "section": "Current Address",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Current Address, Residency Duration, Housing Type, Monthly Rent",
+          "customer_specific_tags": [],
+          "section_reference": "Current Address",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What is the applicant's current street address?",
+            "How long has the applicant lived at their current address?",
+            "What is the monthly rent amount for the current address?",
+            "In which city and state is the current address located?"
+          ],
+          "structured_tables": "[{\"title\": \"Current Residential Address and Housing Expense\", \"headers\": [\"Field\", \"Value\"], \"rows\": [], \"notes\": \"Housing status 'Rent' is selected via bullet point. [validation: 4/16 cells (25%) not directly grounded in source \\u2014 verify before use] [continuation_of: chunk 6]\", \"continuation_of\": \"6\"}]"
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "8",
+          "chunk_text": "If at Current Address for LESS than 2 years, list Former Address \u2714 Does not apply\nStreet Unit #\nCity State ZIP Country\nHow Long at Former Address? Years Months Housing No primary housing expense Own Rent ($ /month)",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: If at Current Address for LESS than 2 years, list Former Address] [Topic: Former Residential Address Applicability] [Reference: If at Current Address for LESS than 2 years, list Former Address]\n\nIf at Current Address for LESS than 2 years, list Former Address \u2714 Does not apply\nStreet Unit #\nCity State ZIP Country\nHow Long at Former Address? Years Months Housing No primary housing expense Own Rent ($ /month)",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This section for former address history is marked as not applicable because the applicant has lived at their current address for more than 2 years.",
+          "topic": "Former Residential Address Applicability",
+          "section": "If at Current Address for LESS than 2 years, list Former Address",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Former Address, Residency Duration Requirement",
+          "customer_specific_tags": [],
+          "section_reference": "If at Current Address for LESS than 2 years, list Former Address",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "Does the applicant need to provide a former address?",
+            "Why is the former address section marked as 'Does not apply'?",
+            "What is the threshold of time at a current address that requires a former address to be listed?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "9",
+          "chunk_text": "Mailing Address \u2013 if different from Current Address Does not apply\nStreet Unit #\nCity State ZIP Country",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: Mailing Address \u2013 if different from Current Address] [Topic: Mailing Address Specification] [Reference: Mailing Address \u2013 if different from Current Address]\n\nMailing Address \u2013 if different from Current Address Does not apply\nStreet Unit #\nCity State ZIP Country",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "Indicates that the mailing address is not different from the current address, as the section is marked 'Does not apply'.",
+          "topic": "Mailing Address Specification",
+          "section": "Mailing Address \u2013 if different from Current Address",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Mailing Address",
+          "customer_specific_tags": [],
+          "section_reference": "Mailing Address \u2013 if different from Current Address",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "Is the applicant's mailing address different from their current address?",
+            "Which section indicates if a separate mailing address is required?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "10",
+          "chunk_text": "1b. Current Employment/Self-Employment and Income Does not apply\nGross Monthly Income\nEmployer or Business Name Fegusan Inc Phone ( ) \u2013",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: 1b. Current Employment/Self-Employment and Income] [Topic: Current Employment and Employer Identification] [Reference: 1b. Current Employment/Self-Employment and Income]\n\n1b. Current Employment/Self-Employment and Income Does not apply\nGross Monthly Income\nEmployer or Business Name Fegusan Inc Phone ( ) \u2013",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "Identifies the applicant's current employer as Fegusan Inc and introduces the gross monthly income section.",
+          "topic": "Current Employment and Employer Identification",
+          "section": "1b. Current Employment/Self-Employment and Income",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Employer Name, Employment Status, Gross Monthly Income",
+          "customer_specific_tags": [],
+          "section_reference": "1b. Current Employment/Self-Employment and Income",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "What is the name of the applicant's current employer?",
+            "Which section of the form covers current employment and income?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "11",
+          "chunk_text": "Base $ 12000 /month\nStreet West river view ave, 2000 plaza park Unit #\nOvertime $ /month\nCity Kansas State AR ZIP CountryUSA\nBonus $ /month\nPosition or Title Check if this statement applies: Commission $ /month\nI am employed by a family member,\nStart Date / / (mm/dd/yyyy) Military\nproperty seller, real estate agent, or other",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: Position or Title] [Topic: Employer Location and Base Monthly Income] [Reference: Position or Title]\n\nBase $ 12000 /month\nStreet West river view ave, 2000 plaza park Unit #\nOvertime $ /month\nCity Kansas State AR ZIP CountryUSA\nBonus $ /month\nPosition or Title Check if this statement applies: Commission $ /month\nI am employed by a family member,\nStart Date / / (mm/dd/yyyy) Military\nproperty seller, real estate agent, or other",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "Provides the employer's address in Kansas and specifies a base monthly income of $12,000.",
+          "topic": "Employer Location and Base Monthly Income",
+          "section": "Position or Title",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Employer Address, Base Salary, Employment Conflict Check",
+          "customer_specific_tags": [],
+          "section_reference": "Position or Title",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What is the applicant's base monthly income?",
+            "What is the street address of the employer?",
+            "In which state is the employer located?",
+            "What specific types of additional income fields are listed in this section?"
+          ],
+          "structured_tables": "[{\"title\": \"Employer Location and Base Monthly Income\", \"headers\": [\"Income/Address Field\", \"Value\"], \"rows\": [[\"Base Income\", \"$ 12000 /month\"], [\"Overtime\", \"$ /month\"], [\"Bonus\", \"$ /month\"], [\"Commission\", \"$ /month\"], [\"Street\", \"West river view ave, 2000 plaza park\"], [\"City\", \"Kansas\"], [\"State\", \"AR\"], [\"Country\", \"USA\"]], \"notes\": \"Income fields for Overtime, Bonus, and Commission are present but lack specific numeric values. [validation: 3/17 cells (18%) not directly grounded in source \\u2014 verify before use]\"}]"
+        },
+        {
+          "page_number": "1",
+          "chunk_number": "12",
+          "chunk_text": "How long in this line of work? Years Months party to the transaction. Entitlements$ /month\nOther $ /month\n\u2714 Check if you are the Business \u25cf I have an ownership share of less than 25%. Monthly Income (or Loss)\nOwner or Self-Employed I have an ownership share of 25% or more. $2000 TOTAL $ 0.00 /month\nUniform Residential Loan Application\nFreddie Mac Form 65 \u2022 Fannie Mae Form 1003\nEffective 1/2021",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1] [Section: Owner or Self-Employed] [Topic: Business Ownership and Total Monthly Income] [Reference: Owner or Self-Employed]\n\nHow long in this line of work? Years Months party to the transaction. Entitlements$ /month\nOther $ /month\n\u2714 Check if you are the Business \u25cf I have an ownership share of less than 25%. Monthly Income (or Loss)\nOwner or Self-Employed I have an ownership share of 25% or more. $2000 TOTAL $ 0.00 /month\nUniform Residential Loan Application\nFreddie Mac Form 65 \u2022 Fannie Mae Form 1003\nEffective 1/2021",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "Details the applicant's business ownership share of less than 25% and lists other monthly income of $2,000.",
+          "topic": "Business Ownership and Total Monthly Income",
+          "section": "Owner or Self-Employed",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Page 1",
+          "sub_topics": "Ownership Share, Self-Employment, Other Income, Form Identification",
+          "customer_specific_tags": [],
+          "section_reference": "Owner or Self-Employed",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 36,
+              "num_rectangles": 15,
+              "num_lines": 107,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What is the applicant's ownership share in the business?",
+            "What is the amount listed for 'Other' monthly income?",
+            "What are the form numbers for this Uniform Residential Loan Application?",
+            "What is the effective date of the Freddie Mac Form 65?"
+          ],
+          "structured_tables": "[{\"title\": \"Business Ownership and Total Monthly Income\", \"headers\": [\"Field\", \"Value\"], \"rows\": [[\"Entitlements\", \"$ /month\"], [\"Other\", \"$ /month\"], [\"Ownership Share\", \"I have an ownership share of less than 25%.\"], [\"Monthly Income (or Loss)\", \"$2000\"], [\"TOTAL\", \"$ 0.00 /month\"]], \"notes\": \"The 'TOTAL' value of $0.00 is extracted verbatim from the text despite the $2000 entry above it. Ownership share is indicated by a bullet/check mark. [validation: 2/12 cells (17%) not directly grounded in source \\u2014 verify before use]\"}]"
+        },
+        {
+          "page_number": "2",
+          "chunk_number": "13",
+          "chunk_text": "Section 2: Financial Information \u2014 Assets and Liabilities.\nThis section asks about things you own that\nare worth money and that you want considered to qualify for this loan. It then asks about your liabilities (or debts) that you pay\neach month, such as credit cards, alimony, or other expenses.",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2: Financial Information] [Section: Section 2: Financial Information \u2014 Assets and Liabilities.] [Topic: Overview of Financial Information Assets and Liabilities] [Reference: Section 2]\n\nSection 2: Financial Information \u2014 Assets and Liabilities.\nThis section asks about things you own that\nare worth money and that you want considered to qualify for this loan. It then asks about your liabilities (or debts) that you pay\neach month, such as credit cards, alimony, or other expenses.",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This section introduces the financial disclosure requirements for the loan application, focusing on assets for qualification and monthly debt obligations.",
+          "topic": "Overview of Financial Information Assets and Liabilities",
+          "section": "Section 2: Financial Information \u2014 Assets and Liabilities.",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2: Financial Information",
+          "sub_topics": "Assets, Liabilities, Loan Qualification",
+          "customer_specific_tags": [],
+          "section_reference": "Section 2",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 8,
+              "num_rectangles": 24,
+              "num_lines": 167,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "narrative",
+          "potential_questions": [
+            "What is the purpose of Section 2 in this application?",
+            "What types of items are considered assets according to this section?",
+            "What examples of monthly liabilities are provided in the text?",
+            "Why does the application ask about things the applicant owns?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "2",
+          "chunk_number": "14",
+          "chunk_text": "2a. Assets \u2013 Bank Accounts, Retirement, and Other Accounts You Have\nInclude all accounts below. Under Account Type, choose from the types listed here:\n\u2022 Checking \u2022 Certificate of Deposit \u2022 Stock Options \u2022 Bridge Loan Proceeds \u2022 Trust Account\n\u2022 Savings \u2022 Mutual Fund \u2022 Bonds \u2022 Individual Development \u2022 Cash Value of Life Insurance\n\u2022 Money Market \u2022 Stocks \u2022 Retirement (e.g., 401k, IRA) Account (used for the transaction)\nAccount Type \u2013 use list above Financial Institution Account Number Cash or Market Value\nSavings Virgo Investments CVS3432022 $ 134000\nMutual Fund Hartley 23432322 $ 2340\nStocks Investor Corp 78992XCD322 $ 24000\n$\n$\nProvide TOTAL Amount Here $ 0.00",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2a | Assets] [Section: Account Type \u2013 use list above Financial Institution Account Number Cash or Market Value] [Topic: Assets - Bank Accounts and Retirement Funds] [Reference: 2a]\n\n2a. Assets \u2013 Bank Accounts, Retirement, and Other Accounts You Have\nInclude all accounts below. Under Account Type, choose from the types listed here:\n\u2022 Checking \u2022 Certificate of Deposit \u2022 Stock Options \u2022 Bridge Loan Proceeds \u2022 Trust Account\n\u2022 Savings \u2022 Mutual Fund \u2022 Bonds \u2022 Individual Development \u2022 Cash Value of Life Insurance\n\u2022 Money Market \u2022 Stocks \u2022 Retirement (e.g., 401k, IRA) Account (used for the transaction)\nAccount Type \u2013 use list above Financial Institution Account Number Cash or Market Value\nSavings Virgo Investments CVS3432022 $ 134000\nMutual Fund Hartley 23432322 $ 2340\nStocks Investor Corp 78992XCD322 $ 24000\n$\n$\nProvide TOTAL Amount Here $ 0.00",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk details specific bank, retirement, and investment accounts, including account types, financial institutions, and their current market values.",
+          "topic": "Assets - Bank Accounts and Retirement Funds",
+          "section": "Account Type \u2013 use list above Financial Institution Account Number Cash or Market Value",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2a | Assets",
+          "sub_topics": "Checking, Savings, Mutual Funds, Stocks, Retirement Accounts",
+          "customer_specific_tags": [],
+          "section_reference": "2a",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 8,
+              "num_rectangles": 24,
+              "num_lines": 167,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What is the cash value of the savings account at Virgo Investments?",
+            "Which financial institution holds the applicant's mutual fund?",
+            "What is the account number for the stocks held at Investor Corp?",
+            "What are the valid account types that can be listed in section 2a?"
+          ],
+          "structured_tables": "[{\"title\": \"Assets \\u2013 Bank Accounts, Retirement, and Other Accounts\", \"headers\": [\"Account Type\", \"Financial Institution\", \"Account Number\", \"Cash or Market Value\"], \"rows\": [[\"Savings\", \"Virgo Investments\", \"CVS3432022\", \"$ 134000\"], [\"Mutual Fund\", \"Hartley\", \"23432322\", \"$ 2340\"], [\"Stocks\", \"Investor Corp\", \"78992XCD322\", \"$ 24000\"]], \"notes\": \"The text includes a 'Provide TOTAL Amount Here' field with a value of '$ 0.00', which does not match the sum of the listed assets.\"}]"
+        },
+        {
+          "page_number": "2",
+          "chunk_number": "15",
+          "chunk_text": "2b. Other Assets and Credits You Have Does not apply\nInclude all other assets and credits below. Under Asset or Credit Type, choose from the types listed here:\nAssets Credits\n\u2022 Proceeds from Real Estate \u2022 Proceeds from Sale of \u2022 Unsecured Borrowed Funds \u2022 Earnest Money \u2022 Relocation Funds \u2022 Sweat Equity\nProperty to be sold on or Non-Real Estate Asset \u2022 Other \u2022 Employer Assistance \u2022 Rent Credit \u2022 Trade Equity\nbefore closing \u2022 Secured Borrowed Funds \u2022 Lot Equity\nAsset or Credit Type \u2013 use list above Cash or Market Value\n$\n$\n$\n$\nProvide TOTAL Amount Here $ 0.00",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2b | Other Assets] [Section: Asset or Credit Type \u2013 use list above Cash or Market Value] [Topic: Other Assets and Credits] [Reference: 2b]\n\n2b. Other Assets and Credits You Have Does not apply\nInclude all other assets and credits below. Under Asset or Credit Type, choose from the types listed here:\nAssets Credits\n\u2022 Proceeds from Real Estate \u2022 Proceeds from Sale of \u2022 Unsecured Borrowed Funds \u2022 Earnest Money \u2022 Relocation Funds \u2022 Sweat Equity\nProperty to be sold on or Non-Real Estate Asset \u2022 Other \u2022 Employer Assistance \u2022 Rent Credit \u2022 Trade Equity\nbefore closing \u2022 Secured Borrowed Funds \u2022 Lot Equity\nAsset or Credit Type \u2013 use list above Cash or Market Value\n$\n$\n$\n$\nProvide TOTAL Amount Here $ 0.00",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This section provides categories for reporting additional assets and credits such as real estate proceeds, earnest money, and employer assistance.",
+          "topic": "Other Assets and Credits",
+          "section": "Asset or Credit Type \u2013 use list above Cash or Market Value",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2b | Other Assets",
+          "sub_topics": "Real Estate Proceeds, Credits, Employer Assistance, Lot Equity",
+          "customer_specific_tags": [],
+          "section_reference": "2b",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 8,
+              "num_rectangles": 24,
+              "num_lines": 167,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "instructions",
+          "potential_questions": [
+            "What types of credits can be included in section 2b?",
+            "Is 'Sweat Equity' categorized as an asset or a credit in this form?",
+            "What are examples of non-real estate assets that can be listed?",
+            "Under what condition should proceeds from real estate be included here?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "2",
+          "chunk_number": "16",
+          "chunk_text": "2c. Liabilities \u2013 Credit Cards, Other Debts, and Leases that You Owe Does not apply\nList all liabilities below (except real estate) and include deferred payments. Under Account Type, choose from the types listed here:\n\u2022 Revolving (e.g., credit cards) \u2022 Installment (e.g., car, student, personal loans) \u2022 Open 30-Day (balance paid monthly) \u2022 Lease (not real estate) \u2022 Other\nAccount Type \u2013 To be paid off at\nuse list above Company Name Account Number Unpaid Balance or before closing Monthly Payment\n$ $\n$ $\n$ $\n$ $\n$ $",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2c | Liabilities] [Section: Account Type \u2013 To be paid off at] [Topic: Liabilities - Credit Cards and Other Debts] [Reference: 2c]\n\n2c. Liabilities \u2013 Credit Cards, Other Debts, and Leases that You Owe Does not apply\nList all liabilities below (except real estate) and include deferred payments. Under Account Type, choose from the types listed here:\n\u2022 Revolving (e.g., credit cards) \u2022 Installment (e.g., car, student, personal loans) \u2022 Open 30-Day (balance paid monthly) \u2022 Lease (not real estate) \u2022 Other\nAccount Type \u2013 To be paid off at\nuse list above Company Name Account Number Unpaid Balance or before closing Monthly Payment\n$ $\n$ $\n$ $\n$ $\n$ $",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This chunk outlines the reporting of liabilities including revolving credit, installment loans, and leases, excluding real estate debts.",
+          "topic": "Liabilities - Credit Cards and Other Debts",
+          "section": "Account Type \u2013 To be paid off at",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2c | Liabilities",
+          "sub_topics": "Revolving Debt, Installment Loans, Leases, Monthly Payments",
+          "customer_specific_tags": [],
+          "section_reference": "2c",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 8,
+              "num_rectangles": 24,
+              "num_lines": 167,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "instructions",
+          "potential_questions": [
+            "What types of liabilities should be listed in section 2c?",
+            "Are real estate liabilities included in this specific section?",
+            "What does 'Open 30-Day' refer to in the account type list?",
+            "What specific information is required for each liability listed?"
+          ],
+          "structured_tables": null
+        },
+        {
+          "page_number": "2",
+          "chunk_number": "17",
+          "chunk_text": "2d. Other Liabilities and Expenses Does not apply\nInclude all other liabilities and expenses below. Choose from the types listed here:\n\u2022 Alimony \u2022 Child Support \u2022 Separate Maintenance \u2022 Job Related Expenses \u2022 Other Monthly Payment\n$\n$\n$\nBorrower Name:\nUniform Residential Loan Application\nFreddie Mac Form 65 \u2022 Fannie Mae Form 1003\nEffective 1/2021",
+          "contextualized_chunk_text": "[Document context: Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2d | Freddie Mac Form 65 | Fannie Mae Form 1003 | 1/2021] [Section: \u2022 Alimony \u2022 Child Support \u2022 Separate Maintenance \u2022 Job Related Expenses \u2022 Other Monthly Payment] [Topic: Other Liabilities and Expenses] [Reference: 2d]\n\n2d. Other Liabilities and Expenses Does not apply\nInclude all other liabilities and expenses below. Choose from the types listed here:\n\u2022 Alimony \u2022 Child Support \u2022 Separate Maintenance \u2022 Job Related Expenses \u2022 Other Monthly Payment\n$\n$\n$\nBorrower Name:\nUniform Residential Loan Application\nFreddie Mac Form 65 \u2022 Fannie Mae Form 1003\nEffective 1/2021",
+          "source_info": "loan-extraction.pdf",
+          "freshness_date": "2021-01-31",
+          "freshness_date_unix": 1612051200,
+          "summary": "This section covers miscellaneous monthly expenses such as alimony and child support, and provides the official form identification and effective date.",
+          "topic": "Other Liabilities and Expenses",
+          "section": "\u2022 Alimony \u2022 Child Support \u2022 Separate Maintenance \u2022 Job Related Expenses \u2022 Other Monthly Payment",
+          "universal": "Uniform Residential Loan Application | Freddie Mac Form 65 \u2022 Fannie Mae Form 1003 | Effective 1/2021 | Section 2d | Freddie Mac Form 65 | Fannie Mae Form 1003 | 1/2021",
+          "sub_topics": "Alimony, Child Support, Job Related Expenses, Form Identification",
+          "customer_specific_tags": [],
+          "section_reference": "2d",
+          "parent_section_id": "",
+          "split_index": 0,
+          "split_total": 0,
+          "debug_info": {
+            "is_visual": false,
+            "visual_metrics": {
+              "num_curves": 8,
+              "num_rectangles": 24,
+              "num_lines": 167,
+              "num_images": 0
+            },
+            "visual_reasons": "",
+            "was_gemini_necessary": "",
+            "chunker_result": "Success",
+            "model": "gemini-2.5-flash",
+            "file_type": "pdf",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 12182,
+                "output_tokens_per_file": 8047,
+                "total_tokens_per_file": 20229,
+                "total_llm_calls_per_file": 9,
+                "total_pages": 2,
+                "pages_with_chunks": 2,
+                "pages_with_zero_chunks": 0
+              }
+            }
+          },
+          "heading_type": "section",
+          "parent_title": "",
+          "content_type": "instructions",
+          "potential_questions": [
+            "What specific monthly expenses are listed under Other Liabilities?",
+            "Which form numbers are associated with this document?",
+            "When did this version of the Uniform Residential Loan Application become effective?",
+            "What category does 'Separate Maintenance' fall under in this section?"
+          ],
+          "structured_tables": null
+        }
+      ]
+    }
+  }
+}

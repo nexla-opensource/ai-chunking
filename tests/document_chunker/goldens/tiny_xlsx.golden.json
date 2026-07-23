@@ -1,0 +1,108 @@
+{
+  "fixture": "tiny.xlsx",
+  "outputs": {
+    "tiny.json": {
+      "columns": [
+        "chunk_number",
+        "sheet_name",
+        "summary",
+        "chunk_text",
+        "source_info",
+        "freshness_date",
+        "freshness_date_unix",
+        "topic",
+        "section",
+        "universal",
+        "sub_topics",
+        "customer_specific_tags",
+        "section_reference",
+        "content_type",
+        "potential_questions",
+        "structured_tables",
+        "debug_info"
+      ],
+      "records": [
+        {
+          "chunk_number": "1",
+          "sheet_name": "Summary",
+          "summary": "This data block provides a detailed financial summary for Q1 2024, including monthly revenue, expenses, and net income figures for January, February, and March. It also presents the cumulative totals and monthly averages for revenue, expenses, and net income across the entire quarter, highlighting a net loss for Q1.",
+          "chunk_text": "Financial Data | Q1 2024 | Internal Report | Q1 2024 Financial Performance Summary | Quarterly Financials | Revenue, Expenses, Net Income | For January 2024, the revenue was 2500.00, expenses totaled 1800.0, resulting in a net income of 700.00. In February 2024, revenue increased to 3100.00, but expenses were significantly higher at 5440.5, leading to a net loss of -2340.50. March 2024 saw revenue at 2750.00 and expenses at 1800.0, yielding a net income of 950.00. The cumulative Q1 Total revenue amounted to 8350.00, with total expenses reaching 9040.5, resulting in a net loss of -690.50 for the quarter. The average monthly revenue for Q1 was 2783.33, average expenses were 3013.5, and the average net income was -230.17.",
+          "source_info": "tiny.xlsx",
+          "freshness_date": "Unknown",
+          "freshness_date_unix": -1,
+          "topic": "",
+          "section": "Quarterly Financials",
+          "universal": "Financial Data | Q1 2024 | Internal Report",
+          "sub_topics": "Revenue, Expenses, Net Income",
+          "customer_specific_tags": "",
+          "section_reference": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What was the net income for February 2024?",
+            "What was the total revenue for Q1 2024?",
+            "What were the average monthly expenses during Q1 2024?",
+            "How much revenue was generated in January 2024?",
+            "What was the overall net income for Q1 2024?"
+          ],
+          "structured_tables": "[]",
+          "debug_info": {
+            "chunker_result": "Success",
+            "file_type": "excel",
+            "processing_method": "header_prefixed_blocks_per_sheet",
+            "total_chunks": 2,
+            "total_sheets": 2,
+            "model": "gemini-2.5-flash",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 5619,
+                "output_tokens_per_file": 1289,
+                "total_tokens_per_file": 6908,
+                "total_llm_calls_per_file": 6
+              }
+            }
+          }
+        },
+        {
+          "chunk_number": "2",
+          "sheet_name": "Detail",
+          "summary": "This data block details financial transactions from January 5, 2024, to March 29, 2024, including an opening balance, revenue from three invoices, and expenses for rent, utilities, and payroll. The account balance fluctuates from an initial 12,500.0 to 11,809.5 by the end of March.",
+          "chunk_text": "Financial Transactions Data | January - March 2024 | Financial Transactions and Account Balances (January - March 2024) | Monthly Financial Overview | Revenue, Expenses, Account Balances | On 2024-01-05, the account 1000-CASH recorded an Opening balance with an amount of 0.0, resulting in a balance of 12500.0. Following this, on 2024-01-12, account 4000-REV processed Invoice INV-1001 for an amount of 2500.0, increasing the balance to 15000.0. On 2024-01-19, account 6100-RENT had an Office rent January expense of -1800.0, bringing the balance to 13200.0. Moving to February, on 2024-02-02, account 4000-REV recorded Invoice INV-1002 for 3100.0, with the balance reaching 16300.0. Subsequently, on 2024-02-14, account 6200-UTIL incurred Utilities February expenses of -240.5, adjusting the balance to 16059.5. On 2024-02-28, account 6300-PAYR processed Payroll February for -5200.0, leading to a balance of 10859.5. In March, on 2024-03-08, account 4000-REV recorded Invoice INV-1003 for 2750.0, increasing the balance to 13609.5. Finally, on 2024-03-29, account 6100-RENT had an Office rent March expense of -1800.0, resulting in a balance of 11809.5.",
+          "source_info": "tiny.xlsx",
+          "freshness_date": "Unknown",
+          "freshness_date_unix": -1,
+          "topic": "",
+          "section": "Monthly Financial Overview",
+          "universal": "Financial Transactions Data | January - March 2024",
+          "sub_topics": "Revenue, Expenses, Account Balances",
+          "customer_specific_tags": "",
+          "section_reference": "",
+          "content_type": "metrics",
+          "potential_questions": [
+            "What was the account balance on February 28, 2024?",
+            "What was the amount of Invoice INV-1002 and on what date was it recorded?",
+            "How much was paid for Office rent in January and March?",
+            "What was the opening balance for the 1000-CASH account on January 5, 2024?",
+            "What was the largest single expense recorded in this period and on what date?"
+          ],
+          "structured_tables": "[]",
+          "debug_info": {
+            "chunker_result": "Success",
+            "file_type": "excel",
+            "processing_method": "header_prefixed_blocks_per_sheet",
+            "total_chunks": 2,
+            "total_sheets": 2,
+            "model": "gemini-2.5-flash",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 5619,
+                "output_tokens_per_file": 1289,
+                "total_tokens_per_file": 6908,
+                "total_llm_calls_per_file": 6
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "1c61f6cf649f988fc0fd30cfe06f4d28e33fdedea8181bdad4e9fc73f34473da": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash-lite",
+    "response": "\"Unknown\""
+  },
+  "2030d9f19d3d5fcc097fd84f33ec371d36ae435c7f13a087771b868b49ae14df": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 725
+  },
+  "216994c2c45dc17c56186cb4c2c21a178702838e8892891b24f67c40f7004185": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 28
+  },
+  "3220d3b0e40e37df369dcae915c2014f819171af110d5b71926aadb5441f57ff": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash-lite",
+    "response": "[\n  \"date\",\n  \"account\",\n  \"description\",\n  \"amount\",\n  \"balance\"\n]"
+  },
+  "359305dd62c9ca003401b3e661c94fcc88233ada51346bfab55195873edff4ea": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash",
+    "response": "{\"file_title\": \"tiny.xlsx\", \"freshness_date\": \"2024-03-29\"}"
+  },
+  "37ecc48366e6a4b76d962262016a7abe7be75e11517bf79ae0666a196be0b52e": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 3
+  },
+  "498c5440792d2ad2b60dfe195b69501998e073e4e06a6facf17b42cd7fe2692b": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 318
+  },
+  "798666176e3f46fe572ce3e461a85f02fe883ae8721da84a3ac08d1fd7dbf30b": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 924
+  },
+  "8067b83f37c24e38acc812721819f6e9b9342bb7b26710a98bc4634e3b26cfc5": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 1782
+  },
+  "95a305bcabc29bb278b3e77d2d010aaffae054f23f974eaf1ead56a97afa97b0": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 12
+  },
+  "988cec110634da9ed9ce3fafa091920729b61557299dad28d08dac0ec567c1ab": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 477
+  },
+  "a1735226cb9f8a404cccf40b2b972482efda533c9e35d197753c84eafd02493d": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 28
+  },
+  "d08d48421c2f5b1a3d72b21a2d1f428a9c46f8fac1b744f9e60c4dc0b2eb9c20": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 177
+  },
+  "d3ad229bb951751b5f5d95ef1028e6c87c655514d80cd720a2ec733049576e09": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 493
+  },
+  "e25588387bbd70105e14486471ef6ad7f54b9d27c844734e7fae487d741d51ec": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash",
+    "response": "{\n  \"chunk_number\": 1,\n  \"sheet_name\": \"Summary\",\n  \"summary\": \"This data block provides a detailed financial summary for Q1 2024, including monthly revenue, expenses, and net income figures for January, February, and March. It also presents the cumulative totals and monthly averages for revenue, expenses, and net income across the entire quarter, highlighting a net loss for Q1.\",\n  \"topic\": \"Q1 2024 Financial Performance Summary\",\n  \"chunk_text\": \"For January 2024, the revenue was 2500.00, expenses totaled 1800.0, resulting in a net income of 700.00. In February 2024, revenue increased to 3100.00, but expenses were significantly higher at 5440.5, leading to a net loss of -2340.50. March 2024 saw revenue at 2750.00 and expenses at 1800.0, yielding a net income of 950.00. The cumulative Q1 Total revenue amounted to 8350.00, with total expenses reaching 9040.5, resulting in a net loss of -690.50 for the quarter. The average monthly revenue for Q1 was 2783.33, average expenses were 3013.5, and the average net income was -230.17.\",\n  \"content_type\": \"metrics\",\n  \"potential_questions\": [\n    \"What was the net income for February 2024?\",\n    \"What was the total revenue for Q1 2024?\",\n    \"What were the average monthly expenses during Q1 2024?\",\n    \"How much revenue was generated in January 2024?\",\n    \"What was the overall net income for Q1 2024?\"\n  ],\n  \"universal\": \"Financial Data | Q1 2024 | Internal Report\",\n  \"section\": \"Quarterly Financials\",\n  \"sub_topics\": \"Revenue, Expenses, Net Income\"\n}"
+  },
+  "ed16794e0e3387c4e10ddd90e0a221b917ca675acc0ea1f4d5bc54ea99009f79": {
+    "method": "count_tokens",
+    "model": "gemini-2.5-flash",
+    "response": 1941
+  },
+  "f23bdede165e761f5df3a8ced1f4cbb7de9657b940dd6b5036b15535bfcb7294": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash",
+    "response": "{\n  \"chunk_number\": \"1\",\n  \"sheet_name\": \"Detail\",\n  \"summary\": \"This data block details financial transactions from January 5, 2024, to March 29, 2024, including an opening balance, revenue from three invoices, and expenses for rent, utilities, and payroll. The account balance fluctuates from an initial 12,500.0 to 11,809.5 by the end of March.\",\n  \"topic\": \"Financial Transactions and Account Balances (January - March 2024)\",\n  \"chunk_text\": \"On 2024-01-05, the account 1000-CASH recorded an Opening balance with an amount of 0.0, resulting in a balance of 12500.0. Following this, on 2024-01-12, account 4000-REV processed Invoice INV-1001 for an amount of 2500.0, increasing the balance to 15000.0. On 2024-01-19, account 6100-RENT had an Office rent January expense of -1800.0, bringing the balance to 13200.0. Moving to February, on 2024-02-02, account 4000-REV recorded Invoice INV-1002 for 3100.0, with the balance reaching 16300.0. Subsequently, on 2024-02-14, account 6200-UTIL incurred Utilities February expenses of -240.5, adjusting the balance to 16059.5. On 2024-02-28, account 6300-PAYR processed Payroll February for -5200.0, leading to a balance of 10859.5. In March, on 2024-03-08, account 4000-REV recorded Invoice INV-1003 for 2750.0, increasing the balance to 13609.5. Finally, on 2024-03-29, account 6100-RENT had an Office rent March expense of -1800.0, resulting in a balance of 11809.5.\",\n  \"content_type\": \"metrics\",\n  \"potential_questions\": [\n    \"What was the account balance on February 28, 2024?\",\n    \"What was the amount of Invoice INV-1002 and on what date was it recorded?\",\n    \"How much was paid for Office rent in January and March?\",\n    \"What was the opening balance for the 1000-CASH account on January 5, 2024?\",\n    \"What was the largest single expense recorded in this period and on what date?\"\n  ],\n  \"universal\": \"Financial Transactions Data | January - March 2024\",\n  \"section\": \"Monthly Financial Overview\",\n  \"sub_topics\": \"Revenue, Expenses, Account Balances\"\n}"
+  },
+  "f780b44c4b9f6ab777fa0988a3c02c43c3c7e94b406bab3a531cfb11521914d4": {
+    "method": "agen_text",
+    "model": "gemini-2.5-flash-lite",
+    "response": "[\"month\", \"revenue\", \"expenses\", \"net\"]"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "fixture": "tiny.png",
+  "outputs": {
+    "tiny.json": {
+      "columns": [
+        "chunk_number",
+        "page_number",
+        "sheet_name",
+        "summary",
+        "chunk_text",
+        "source_info",
+        "freshness_date",
+        "freshness_date_unix",
+        "topic",
+        "section",
+        "universal",
+        "sub_topics",
+        "customer_specific_tags",
+        "section_reference",
+        "debug_info"
+      ],
+      "records": [
+        {
+          "chunk_number": "1",
+          "page_number": null,
+          "sheet_name": null,
+          "summary": "The image displays a concise quarterly financial report for Q1 2024, indicating a total revenue of $1,250,000. Its purpose is to quickly communicate a key financial performance metric for the specified period.",
+          "chunk_text": "The scene depicted in the image is a minimalist text-based report, likely a snippet from a financial document, a dashboard, or a simple data display. The background is plain white, drawing full attention to the textual information presented.\n\nThe only significant objects identified in the image are lines of text. There are no people, animals, or other graphical elements present.\n\nAll visible text has been transcribed as follows:\nQUARTERLY REPORT\nQ1 2024 (ending 2024-03-31)\nTotal revenue: $1,250,000\n\nThe image does not contain any charts, graphs, or tables in a visual format. However, it presents structured financial data. It specifies a 'QUARTERLY REPORT' for 'Q1 2024', which concluded on '2024-03-31'. The primary data point provided is the 'Total revenue' for this period, which is stated as '$1,250,000'. This data represents a key financial performance indicator for the first fiscal quarter of 2024.\n\nBased on the elements, the image's likely purpose is to provide a quick and clear overview of a company's or entity's total revenue for the first quarter of 2024, serving as a summary or a key highlight from a larger financial report.",
+          "source_info": "tiny.png",
+          "freshness_date": "Unknown",
+          "freshness_date_unix": -1,
+          "topic": "",
+          "section": "",
+          "universal": "",
+          "sub_topics": "",
+          "customer_specific_tags": "",
+          "section_reference": "",
+          "debug_info": {
+            "chunker_result": "Success",
+            "processing_method": "image_analysis",
+            "original_mime_type": "image/png",
+            "model": "gemini-2.5-flash",
+            "file_type": "image",
+            "llm_stats": {
+              "file_level_stats": {
+                "input_tokens_per_file": 462,
+                "output_tokens_per_file": 372,
+                "total_tokens_per_file": 834,
+                "total_llm_calls_per_file": 2
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
